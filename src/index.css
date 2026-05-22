@@ -1,0 +1,73 @@
+@import url('https://fonts.cdnfonts.com/css/google-sans');
+@import url('https://fonts.cdnfonts.com/css/product-sans');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Google Sans", "Product Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Google Sans", "Product Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Google Sans", "Product Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Force standard elements to inherit the Google Sans font family */
+*, select, input, button, textarea {
+  font-family: var(--font-sans);
+}
+
+/* Map all classic monospace selectors to Google Sans typography */
+.font-mono, .font-mono *, code, pre, samp {
+  font-family: var(--font-sans) !important;
+}
+
+/* Base custom Google Material Dark setup */
+html, body {
+  font-family: var(--font-sans);
+  background-color: #131314; /* Google Sans/Gemini dark background */
+  color: #e3e3e3;           /* Primary bright gray text */
+}
+
+/* True Google Rainbow Color Gradient helper classes (Ensuring correct RED values are preserved explicitly) */
+.bg-google-rainbow {
+  background: linear-gradient(90deg, #4285F4 0%, #EA4335 28%, #FBBC05 60%, #34A853 100%) !important;
+}
+
+.text-google-rainbow {
+  background: linear-gradient(90deg, #4285F4 0%, #EA4335 28%, #FBBC05 60%, #34A853 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline-block;
+}
+
+/* Custom gorgeous scrollbar for Google Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1f20;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3c4043;
+  border-radius: 9999px;
+  border: 2px solid #1e1f20;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5f6368;
+}
+
+/* Responsive custom utilities */
+.google-blue { color: #8ab4f8; }
+.google-red { color: #f28b82; }
+.google-yellow { color: #fdd663; }
+.google-green { color: #81c995; }
+
+.google-bg-blue { background-color: rgba(138, 180, 248, 0.15); border-color: rgba(138, 180, 248, 0.3); color: #8ab4f8; }
+.google-bg-red { background-color: rgba(242, 139, 130, 0.15); border-color: rgba(242, 139, 130, 0.3); color: #f28b82; }
+.google-bg-yellow { background-color: rgba(253, 214, 99, 0.15); border-color: rgba(253, 214, 99, 0.3); color: #fdd663; }
+.google-bg-green { background-color: rgba(129, 201, 149, 0.15); border-color: rgba(129, 201, 149, 0.3); color: #81c995; }
+

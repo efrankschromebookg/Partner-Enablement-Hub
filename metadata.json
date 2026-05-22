@@ -1,0 +1,6 @@
+{
+  "name": "RPM & Partner One-Stop",
+  "description": "Centralized platform managing partner contacts, training efforts, active projects, and RPM ownership.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
