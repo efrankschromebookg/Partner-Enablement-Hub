@@ -299,126 +299,46 @@ export default function App() {
           
           {/* TAB 1: PARTNER DIRECTORY WORKSPACE */}
           {activeTab === 'directory' && (
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-              
-              {/* Sidebar Filters */}
-              <div className="lg:col-span-1 bg-[#1e1f20] border border-[#3c4043] rounded-2xl p-5 shadow-lg space-y-5 sticky top-[210px] z-1">
-                <div className="flex items-center justify-between border-b border-[#2d2f31] pb-3">
-                  <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-1.5">
-                    <Filter className="w-3.5 h-3.5 text-[#8ab4f8]" />
-                    <span>Workspace Filters</span>
-                  </h3>
-                  
+            <div className="space-y-6 w-full animate-fade-in">
+              {/* Sleek horizontal header & search bar strip */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#1e1f20] border border-[#3c4043] rounded-2xl p-5 shadow-lg">
+                <div className="space-y-1">
+                  <h4 className="text-xs md:text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8ab4f8]"></span>
+                    <span>Priority Mapped Partners Workspace</span>
+                  </h4>
+                  <p className="text-[11px] text-zinc-400 font-semibold">
+                    Showing {filteredPartners.length} of {partners.filter(p => p.tier === 'Priority').length} Priority Channel Accounts
+                  </p>
+                </div>
+                
+                {/* Horizontal Search & Reset Controls */}
+                <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                  <div className="relative w-full md:w-72">
+                    <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 w-4 h-4 text-zinc-500 absolute left-3 top-3" />
+                    <input
+                      type="text"
+                      placeholder="Search accounts, POC name, project title..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full text-xs bg-[#202124] text-white border border-[#3c4043] rounded-full pl-9 pr-3 py-2.5 focus:border-[#8ab4f8] focus:outline-none placeholder-zinc-500 font-medium transition-colors"
+                    />
+                  </div>
                   { (searchQuery || filterRpm !== 'all' || filterActivity !== 'all' || filterSector !== 'all') && (
                     <button 
                       onClick={handleClearFilters}
-                      className="text-[10px] text-zinc-500 hover:text-[#8ab4f8] font-bold uppercase tracking-wider transition-colors"
+                      className="text-[10px] text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 px-4 py-2.5 rounded-full border border-[#3c4043] font-bold uppercase tracking-wider transition-all"
                     >
-                      Clear
+                      Reset Workspace
                     </button>
                   )}
-                </div>
-
-                {/* Direct Search query input */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-[#9aa0a6] uppercase tracking-wider">Freeform Search</label>
-                  <div className="relative">
-                    <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-3.5" />
-                    <input
-                      type="text"
-                      placeholder="Partner, POC, or project..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full text-xs bg-[#202124] text-white border border-[#3c4043] rounded-xl pl-9 pr-3 py-2.5 focus:border-[#8ab4f8] focus:bg-[#202124] focus:outline-none placeholder-zinc-600 font-medium transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Filter section RPM Owner */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-[#9aa0a6] uppercase tracking-wider">RPM Account Owner</label>
-                  <select
-                    value={filterRpm}
-                    onChange={(e) => setFilterRpm(e.target.value)}
-                    className="w-full text-xs bg-[#202124] text-[#e3e3e3] border border-[#3c4043] rounded-xl p-2.5 focus:border-[#8ab4f8] focus:outline-none font-semibold transition-colors"
-                  >
-                    <option value="all">All RPMs</option>
-                    {rpms.map(r => (
-                      <option key={r.id} value={r.id}>{r.name}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Locked Priority Channel Indicator */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-[#9aa0a6] uppercase tracking-wider">Channel Classification</label>
-                  <div className="text-xs bg-[rgba(242,139,130,0.15)] text-[#f28b82] border border-[rgba(242,139,130,0.25)] px-3 py-2.5 rounded-xl font-bold text-center uppercase tracking-wide flex items-center justify-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f28b82] animate-ping"></span>
-                    <span>Priority Partners Only</span>
-                  </div>
-                </div>
-
-                {/* Filter section Level of Activity */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-[#9aa0a6] uppercase tracking-wider">Engagement Level</label>
-                  <select
-                    value={filterActivity}
-                    onChange={(e) => setFilterActivity(e.target.value)}
-                    className="w-full text-xs bg-[#202124] text-[#e3e3e3] border border-[#3c4043] rounded-xl p-2.5 focus:border-[#8ab4f8] focus:outline-none font-semibold transition-colors"
-                  >
-                    <option value="all">All Engagement Levels</option>
-                    <option value="High">High Activity</option>
-                    <option value="Medium">Medium Activity</option>
-                    <option value="Low">Low Activity</option>
-                    <option value="Planned">Planned Only</option>
-                  </select>
-                </div>
-
-                {/* Filter Section Sector classifications */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-[#9aa0a6] uppercase tracking-wider">Technology Sector</label>
-                  <select
-                    value={filterSector}
-                    onChange={(e) => setFilterSector(e.target.value)}
-                    className="w-full text-xs bg-[#202124] text-[#e3e3e3] border border-[#3c4043] rounded-xl p-2.5 focus:border-[#8ab4f8] focus:outline-none font-semibold transition-colors"
-                  >
-                    <option value="all">All Sectors</option>
-                    <option value="OEM">OEM Hardware</option>
-                    <option value="SoC">SoC Chipsets</option>
-                    <option value="Retailer">Retailers</option>
-                    <option value="Disti">Distributors</option>
-                    <option value="Carrier">Carriers</option>
-                    <option value="Other">Other Vendors</option>
-                  </select>
-                </div>
-
-                {/* Quick informational guidelines box */}
-                <div className="bg-[#202124]/50 rounded-xl p-4 text-[11px] text-[#9aa0a6] leading-normal border border-zinc-800">
-                  <p className="font-bold text-zinc-300 flex items-center gap-1.5 mb-1.5">
-                    <Clock className="w-3.5 h-3.5 text-[#fdd663]" />
-                    <span>Manager Note:</span>
-                  </p>
-                  Click on any card to edit point of contacts, add direct training logs, or log meeting minutes as active projects.
                 </div>
               </div>
 
               {/* Main Directory grid list */}
-              <div className="lg:col-span-3 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-xs md:text-sm font-bold text-[#9aa0a6] uppercase tracking-wider">
-                    Showing {filteredPartners.length} of {partners.filter(p => p.tier === 'Priority').length} Priority Mapped Partners
-                  </h4>
-                  
-                  {filteredPartners.length === 0 && (
-                    <span className="text-xs text-[#f28b82] font-bold flex items-center gap-1 bg-red-950/20 border border-red-900/30 px-2 py-0.5 rounded">
-                      <AlertCircle className="w-3.5 h-3.5" />
-                      <span>No results match criteria</span>
-                    </span>
-                  )}
-                </div>
-
+              <div className="space-y-4">
                 {filteredPartners.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {filteredPartners.map(p => {
                       const rpm = getRpmById(p.rpmId);
                       return (
@@ -437,7 +357,7 @@ export default function App() {
                       <Search className="w-6 h-6" />
                     </div>
                     <p className="text-sm font-bold text-white">No active corporate matches found.</p>
-                    <p className="text-xs text-[#9aa0a6]">Try loosening your filters or resetting the workspace baseline snap to Q2 stats.</p>
+                    <p className="text-xs text-[#9aa0a6]">Try loosening your search terms or resetting the workspace baseline setup.</p>
                     <button
                       onClick={handleClearFilters}
                       className="inline-flex justify-center bg-[#8ab4f8] hover:bg-[#a8c7fa] text-[#131314] font-bold text-xs px-4 py-2 rounded-full transition-all"

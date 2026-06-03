@@ -350,32 +350,87 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
 
                 {/* POC detail list */}
                 {partner.pocs.length > 0 ? (
-                  <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
+                  <div className="space-y-3 pb-1">
                     {partner.pocs.map((poc, idx) => (
-                      <div key={idx} className="flex items-center justify-between p-3 rounded-xl border border-zinc-700/40 bg-[#202124] hover:bg-[#282a2d] transition-colors">
-                        <div>
-                          <p className="text-sm font-bold text-white">{poc.name}</p>
-                          <div className="flex flex-wrap items-center gap-x-2 text-xs text-zinc-400 mt-1">
-                            <a href={`mailto:${poc.email}`} className="text-[#8ab4f8] hover:underline flex items-center gap-1 font-semibold">
-                              <Mail className="w-3 h-3" />
-                              <span>{poc.email}</span>
-                            </a>
-                            {poc.role && (
-                              <span className="text-zinc-400 font-bold font-mono text-[9px] uppercase bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-700/40">
-                                {poc.role}
-                              </span>
-                            )}
+                      <React.Fragment key={idx}>
+                        {editingPocIndex === idx ? (
+                          <div className="space-y-3 p-3.5 rounded-xl border border-[#8ab4f8]/30 bg-[#202124]">
+                            <div className="grid grid-cols-2 gap-2">
+                              <input
+                                type="text"
+                                value={editPocName}
+                                onChange={(e) => setEditPocName(e.target.value)}
+                                className="text-xs bg-zinc-900 border border-[#3c4043] rounded-lg p-2 text-white font-semibold focus:outline-none focus:border-[#8ab4f8]"
+                                placeholder="Name"
+                              />
+                              <input
+                                type="email"
+                                value={editPocEmail}
+                                onChange={(e) => setEditPocEmail(e.target.value)}
+                                className="text-xs bg-zinc-900 border border-[#3c4043] rounded-lg p-2 text-white font-semibold focus:outline-none focus:border-[#8ab4f8]"
+                                placeholder="Email"
+                              />
+                            </div>
+                            <input
+                              type="text"
+                              value={editPocRole}
+                              onChange={(e) => setEditPocRole(e.target.value)}
+                              className="w-full text-xs bg-zinc-900 border border-[#3c4043] rounded-lg p-2 text-white font-semibold focus:outline-none focus:border-[#8ab4f8]"
+                              placeholder="Role Description"
+                            />
+                            <div className="flex justify-end gap-2 pt-1.5 border-t border-zinc-800">
+                              <button
+                                type="button"
+                                onClick={() => setEditingPocIndex(null)}
+                                className="text-[10px] uppercase font-bold text-zinc-400 hover:text-white px-3 py-1 bg-zinc-800 rounded-md"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleSavePoc(idx)}
+                                className="text-[10px] uppercase font-bold text-[#131314] bg-[#8ab4f8] hover:bg-[#a8c7fa] px-3 py-1 rounded-md transition-colors"
+                              >
+                                Save
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="flex items-center justify-between p-3 rounded-xl border border-zinc-700/40 bg-[#202124] hover:bg-[#282a2d] transition-colors">
+                            <div>
+                              <p className="text-sm font-bold text-white">{poc.name}</p>
+                              <div className="flex flex-wrap items-center gap-x-2 text-xs text-zinc-400 mt-1">
+                                <a href={`mailto:${poc.email}`} className="text-[#8ab4f8] hover:underline flex items-center gap-1 font-semibold">
+                                  <Mail className="w-3 h-3" />
+                                  <span>{poc.email}</span>
+                                </a>
+                                {poc.role && (
+                                  <span className="text-zinc-400 font-bold text-[9px] uppercase bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-700/40">
+                                    {poc.role}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
 
-                        <button
-                          onClick={() => handleDeletePoc(poc.email)}
-                          className="p-1.5 text-zinc-500 hover:text-[#f28b82] rounded-full hover:bg-red-950/20 transition-colors"
-                          title="Remove Point of Contact"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                onClick={() => handleStartEditPoc(idx, poc)}
+                                className="p-1.5 text-zinc-400 hover:text-[#8ab4f8] rounded-full hover:bg-zinc-800 transition-colors"
+                                title="Edit Point of Contact"
+                              >
+                                <Pencil className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                onClick={() => handleDeletePoc(poc.email)}
+                                className="p-1.5 text-zinc-500 hover:text-[#f28b82] rounded-full hover:bg-red-950/20 transition-colors"
+                                title="Remove Point of Contact"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </React.Fragment>
                     ))}
                   </div>
                 ) : (
@@ -442,7 +497,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
                 </div>
 
                 {partner.trainingEngagements.length > 0 ? (
-                  <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
+                  <div className="space-y-2.5 pb-1">
                     {partner.trainingEngagements.map((eng, idx) => (
                       <div key={idx} className="flex items-start justify-between p-3 rounded-xl border border-zinc-700/40 bg-[#202124] hover:bg-[#282a2d] transition-colors gap-2">
                         <div className="flex items-start gap-2">
@@ -502,47 +557,114 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
                 </div>
 
                 {partner.projects.length > 0 ? (
-                  <div className="space-y-4 max-h-[460px] overflow-y-auto pr-1">
+                  <div className="space-y-4 pb-1">
                     {partner.projects.map((proj) => (
                       <div key={proj.id} className="p-4 rounded-2xl border border-zinc-700/60 bg-[#202124] hover:bg-[#282a2d] transition-colors relative space-y-3">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="space-y-1">
-                            <p className="text-sm font-bold text-white leading-tight">{proj.title}</p>
-                            {proj.description && (
-                              <p className="text-xs text-[#9aa0a6] leading-relaxed font-semibold">{proj.description}</p>
-                            )}
+                        {editingProjectId === proj.id ? (
+                          <div className="space-y-3">
+                            <div className="space-y-2">
+                              <label className="block text-[9px] font-bold uppercase tracking-wider text-zinc-500">Project Title</label>
+                              <input
+                                type="text"
+                                value={editProjTitle}
+                                onChange={(e) => setEditProjTitle(e.target.value)}
+                                className="w-full text-xs bg-zinc-900 border border-[#3c4043] rounded-lg p-2.5 text-white font-bold focus:outline-none focus:border-[#8ab4f8]"
+                                placeholder="Project Title"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <label className="block text-[9px] font-bold uppercase tracking-wider text-zinc-500">Objective / Next Steps</label>
+                              <textarea
+                                value={editProjDesc}
+                                onChange={(e) => setEditProjDesc(e.target.value)}
+                                className="w-full text-xs bg-zinc-900 border border-[#3c4043] rounded-lg p-2.5 text-zinc-350 font-semibold focus:outline-none focus:border-[#8ab4f8]"
+                                placeholder="Details of the initiative..."
+                                rows={2}
+                              />
+                            </div>
+                            <div className="flex items-center justify-between border-t border-zinc-750 pt-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Status:</span>
+                                <select
+                                  value={editProjStatus}
+                                  onChange={(e) => setEditProjStatus(e.target.value as any)}
+                                  className={`text-xs font-bold px-2 py-1 rounded-lg border ${getStatusClass(editProjStatus)} cursor-pointer bg-zinc-900 focus:outline-none focus:border-[#8ab4f8]`}
+                                >
+                                  <option value="In Progress">In Progress</option>
+                                  <option value="Completed">Completed</option>
+                                  <option value="Stalled">Stalled</option>
+                                  <option value="Planning">Planning</option>
+                                </select>
+                              </div>
+                              <div className="flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingProjectId(null)}
+                                  className="text-[10px] uppercase font-bold text-zinc-400 hover:text-white px-3 py-1.5 bg-zinc-850 rounded-md"
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleSaveProject(proj.id)}
+                                  className="text-[10px] uppercase font-bold text-[#131314] bg-[#8ab4f8] hover:bg-[#a8c7fa] px-3.5 py-1.5 rounded-md transition-colors"
+                                >
+                                  Save
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                          
-                          <button
-                            onClick={() => handleDeleteProject(proj.id)}
-                            className="p-1 px-1.5 text-zinc-500 hover:text-[#f28b82] rounded-full hover:bg-red-950/20 transition-colors shrink-0"
-                            title="Delete project"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
+                        ) : (
+                          <>
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="space-y-1">
+                                <p className="text-sm font-bold text-white leading-tight">{proj.title}</p>
+                                {proj.description && (
+                                  <p className="text-xs text-[#9aa0a6] leading-relaxed font-semibold">{proj.description}</p>
+                                )}
+                              </div>
+                              
+                              <div className="flex items-center gap-1.5 shrink-0">
+                                <button
+                                  onClick={() => handleStartEditProject(proj)}
+                                  className="p-1 px-1.5 text-zinc-400 hover:text-[#8ab4f8] rounded-full hover:bg-zinc-800 transition-colors"
+                                  title="Edit project details"
+                                >
+                                  <Pencil className="w-3.5 h-3.5" />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteProject(proj.id)}
+                                  className="p-1 px-1.5 text-zinc-500 hover:text-[#f28b82] rounded-full hover:bg-red-950/20 transition-colors shrink-0"
+                                  title="Delete project"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </div>
 
-                        {/* Project Controls */}
-                        <div className="flex items-center justify-between border-t border-zinc-700/50 pt-2.5 mt-1">
-                          <span className="text-[10px] font-mono font-bold text-zinc-500 block flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5" />
-                            <span>Updated: {proj.lastUpdated || 'N/A'}</span>
-                          </span>
+                            {/* Project Controls */}
+                            <div className="flex items-center justify-between border-t border-zinc-700/50 pt-2.5 mt-1">
+                              <span className="text-[10px] font-bold text-zinc-500 block flex items-center gap-1">
+                                <Calendar className="w-3.5 h-3.5" />
+                                <span>Updated: {proj.lastUpdated || 'N/A'}</span>
+                              </span>
 
-                          <div className="flex items-center gap-2">
-                            <span className="text-[10px] text-zinc-400 font-bold font-mono uppercase tracking-wider">Status:</span>
-                            <select
-                              value={proj.status}
-                              onChange={(e) => handleUpdateProjectStatus(proj.id, e.target.value as any)}
-                              className={`text-xs font-bold px-2 py-1 rounded-lg border ${getStatusClass(proj.status)} cursor-pointer bg-[#202124] focus:outline-none`}
-                            >
-                              <option value="In Progress">In Progress</option>
-                              <option value="Completed">Completed</option>
-                              <option value="Stalled">Stalled</option>
-                              <option value="Planning">Planning</option>
-                            </select>
-                          </div>
-                        </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Status:</span>
+                                <select
+                                  value={proj.status}
+                                  onChange={(e) => handleUpdateProjectStatus(proj.id, e.target.value as any)}
+                                  className={`text-xs font-bold px-2 py-1 rounded-lg border ${getStatusClass(proj.status)} cursor-pointer bg-[#202124] focus:outline-none`}
+                                >
+                                  <option value="In Progress">In Progress</option>
+                                  <option value="Completed">Completed</option>
+                                  <option value="Stalled">Stalled</option>
+                                  <option value="Planning">Planning</option>
+                                </select>
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
                     ))}
                   </div>
