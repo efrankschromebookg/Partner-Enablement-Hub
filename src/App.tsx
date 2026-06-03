@@ -18,7 +18,9 @@ import {
   RefreshCw,
   Clock,
   ChevronRight,
-  AlertCircle
+  AlertCircle,
+  Copy,
+  Download
 } from 'lucide-react';
 
 import { Partner, RPM, TrainingResource, PartnerProject } from './types';
@@ -118,6 +120,8 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'directory' | 'alignment' | 'enablement'>('directory');
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
   const [showAddPartner, setShowAddPartner] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportCopied, setExportCopied] = useState(false);
 
   // --- Filtering State ---
   const [searchQuery, setSearchQuery] = useState('');
@@ -283,11 +287,24 @@ export default function App() {
           {/* Reset button to baseline with elegant dark theme styles */}
           <button
             onClick={handleResetToSeedData}
-            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-zinc-400 hover:text-white bg-[#202124] hover:bg-zinc-800 px-4 py-2.5 rounded-full border border-[#3c4043] transition-all"
+            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-zinc-400 hover:text-white bg-[#202124] hover:bg-zinc-800 px-4 py-2.5 rounded-full border border-[#3c4043] transition-all cursor-pointer"
             title="Reset to 2026 spreadsheet snapshot baseline"
           >
             <RefreshCw className="w-3.5 h-3.5 text-[#FBBC05]" />
             <span>Reset Baseline Snapshot</span>
+          </button>
+
+          {/* Export Live Updates button */}
+          <button
+            onClick={() => {
+              setExportCopied(false);
+              setShowExportModal(true);
+            }}
+            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#81c995] hover:text-white bg-[#202124] hover:bg-zinc-800 px-4 py-2.5 rounded-full border border-[#314a38] transition-all cursor-pointer"
+            title="Export your current edits to hardcode them forever"
+          >
+            <Download className="w-3.5 h-3.5 text-[#81c995]" />
+            <span>Export Live Updates</span>
           </button>
         </div>
       </div>
@@ -563,6 +580,79 @@ export default function App() {
           onClose={() => setShowAddPartner(false)}
           onAddPartner={handleAddPartner}
         />
+      )}
+
+      {/* --- Export Live Updates Overlay Modal --- */}
+      {showExportModal && (
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-[#1e1f20] border border-[#3c4043] rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative flex flex-col max-h-[85vh]">
+            <button
+              onClick={() => setShowExportModal(false)}
+              className="absolute top-4 right-4 text-zinc-500 hover:text-white p-1 hover:bg-zinc-800 rounded-full transition-colors cursor-pointer"
+              title="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-2 mb-4">
+              <div className="flex items-center gap-2 text-[#81c995]">
+                <FileSpreadsheet className="w-5 h-5" />
+                <h3 className="text-base font-black text-white">Export Live browser Content</h3>
+              </div>
+              <p className="text-xs text-zinc-400 font-medium leading-relaxed">
+                Because your browser saves updates locally, coworkers or live servers (like GitHub/Vercel) cannot see your current edits yet. 
+                <strong className="text-white block mt-1.5">How to publish these live:</strong>
+                1. Click <span className="text-[#8ab4f8] font-bold">"Copy Snapshot JSON"</span> below.<br />
+                2. Paste this text directly into our chat here.<br />
+                3. I will read your exact modifications and permanently hardcode them into the system code so they are live on Vercel and GitHub forever!
+              </p>
+            </div>
+
+            <div className="flex-grow flex flex-col min-h-[180px] bg-[#202124] border border-[#3c4043] rounded-xl p-3 relative overflow-hidden">
+              <textarea
+                readOnly
+                value={JSON.stringify({ rpms, partners, resources }, null, 2)}
+                className="w-full flex-grow text-[10px] font-mono text-zinc-300 bg-transparent resize-none focus:outline-none overflow-y-auto"
+                onClick={(e) => (e.target as HTMLTextAreaElement).select()}
+              />
+            </div>
+
+            <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-zinc-800/80">
+              <button
+                onClick={() => setShowExportModal(false)}
+                className="text-xs uppercase font-extrabold text-[#e3e3e3] hover:text-white px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700/80 rounded-full cursor-pointer transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const dataToCopy = JSON.stringify({ rpms, partners, resources }, null, 2);
+                  navigator.clipboard.writeText(dataToCopy).then(() => {
+                    setExportCopied(true);
+                    setTimeout(() => setExportCopied(false), 3000);
+                  });
+                }}
+                className={`text-xs uppercase font-black px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer transition-all ${
+                  exportCopied 
+                    ? 'bg-[#34a853] text-[#131314]' 
+                    : 'bg-[#8ab4f8] text-[#131314] hover:bg-[#a8c7fa]'
+                }`}
+              >
+                {exportCopied ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>Snapshot Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Copy Snapshot JSON</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Corporate platform footer */}
