@@ -164,10 +164,17 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#9aa0a6] block uppercase tracking-wider">Training Sync</span>
-                <div className="flex items-baseline gap-1.5 mt-1">
-                  <span className="text-lg md:text-xl font-black text-white">{trainingCoveragePct}%</span>
-                  <span className="text-[10px] text-zinc-400 font-bold">({trainedPartnersCount}/{totalPartners})</span>
+                <span className="text-[10px] font-bold text-[#9aa0a6] block uppercase tracking-wider">Field Teams Activated</span>
+                <div className="flex flex-col gap-1.5 mt-1">
+                  <span className="text-lg md:text-xl font-black text-white">100%</span>
+                  <div className="flex flex-wrap gap-1">
+                    <span className="text-[9px] text-[#81c995] font-semibold bg-[#137333]/20 border border-[#81c995]/30 px-1.5 py-0.5 rounded">
+                      4/4 Teams Active
+                    </span>
+                    <span className="text-[9px] text-zinc-400 font-semibold bg-[#131314] border border-zinc-700/50 px-1.5 py-0.5 rounded">
+                      CB, HP, Lenovo, Intel
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -34,7 +34,7 @@ import EnablementHub from './components/EnablementHub.tsx';
 export default function App() {
   // --- Master State Loads ---
   const [partners, setPartners] = useState<Partner[]>(() => {
-    const saved = localStorage.getItem('rpm_partners');
+    const saved = localStorage.getItem('rpm_partners_v3');
     if (saved) {
       const parsed: Partner[] = JSON.parse(saved);
       const partnersToMove = ['samsung', 'mediatek', 'amd', 'qualcomm'];
@@ -51,7 +51,7 @@ export default function App() {
         return p;
       });
       if (migrationNeeded) {
-        localStorage.setItem('rpm_partners', JSON.stringify(migrated));
+        localStorage.setItem('rpm_partners_v3', JSON.stringify(migrated));
         return migrated;
       }
       return parsed;
@@ -60,7 +60,7 @@ export default function App() {
   });
 
   const [rpms, setRpms] = useState<RPM[]>(() => {
-    const saved = localStorage.getItem('rpm_rpms');
+    const saved = localStorage.getItem('rpm_rpms_v3');
     if (saved) {
       const parsed: RPM[] = JSON.parse(saved);
       const partnersToMove = ['Samsung', 'MediaTek', 'AMD', 'Qualcomm'];
@@ -103,7 +103,7 @@ export default function App() {
         return r;
       });
       if (migrationNeeded) {
-        localStorage.setItem('rpm_rpms', JSON.stringify(migrated));
+        localStorage.setItem('rpm_rpms_v3', JSON.stringify(migrated));
         return migrated;
       }
       return parsed;
@@ -112,7 +112,7 @@ export default function App() {
   });
 
   const [resources, setResources] = useState<TrainingResource[]>(() => {
-    const saved = localStorage.getItem('rpm_resources');
+    const saved = localStorage.getItem('rpm_resources_v3');
     return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
   });
 
@@ -132,15 +132,15 @@ export default function App() {
 
   // --- Save Persistence effects ---
   useEffect(() => {
-    localStorage.setItem('rpm_partners', JSON.stringify(partners));
+    localStorage.setItem('rpm_partners_v3', JSON.stringify(partners));
   }, [partners]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_rpms', JSON.stringify(rpms));
+    localStorage.setItem('rpm_rpms_v3', JSON.stringify(rpms));
   }, [rpms]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_resources', JSON.stringify(resources));
+    localStorage.setItem('rpm_resources_v3', JSON.stringify(resources));
   }, [resources]);
 
   // --- State Reset Utility ---
