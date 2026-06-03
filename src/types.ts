@@ -5,6 +5,7 @@ export interface PartnerProject {
   category?: string;
   description?: string;
   lastUpdated?: string;
+  url?: string;
 }
 
 export interface POC {

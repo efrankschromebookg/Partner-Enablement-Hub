@@ -19,6 +19,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
   const [newProjTitle, setNewProjTitle] = useState('');
   const [newProjDesc, setNewProjDesc] = useState('');
   const [newProjStatus, setNewProjStatus] = useState<'In Progress' | 'Completed' | 'Stalled' | 'Planning'>('In Progress');
+  const [newProjUrl, setNewProjUrl] = useState('');
 
   // Local state for adding training engagement log
   const [newEngagementText, setNewEngagementText] = useState('');
@@ -34,6 +35,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
   const [editProjTitle, setEditProjTitle] = useState('');
   const [editProjDesc, setEditProjDesc] = useState('');
   const [editProjStatus, setEditProjStatus] = useState<'In Progress' | 'Completed' | 'Stalled' | 'Planning'>('In Progress');
+  const [editProjUrl, setEditProjUrl] = useState('');
 
   const currentRpm = rpms.find(r => r.id === partner.rpmId);
 
@@ -122,6 +124,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
       title: newProjTitle.trim(),
       description: newProjDesc.trim(),
       status: newProjStatus,
+      url: newProjUrl.trim() || undefined,
       lastUpdated: new Date().toISOString().split('T')[0]
     };
 
@@ -133,6 +136,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
     setNewProjTitle('');
     setNewProjDesc('');
     setNewProjStatus('In Progress');
+    setNewProjUrl('');
   };
 
   // Start Edit Project
@@ -141,6 +145,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
     setEditProjTitle(proj.title);
     setEditProjDesc(proj.description || '');
     setEditProjStatus(proj.status);
+    setEditProjUrl(proj.url || '');
   };
 
   // Save Project
@@ -153,6 +158,7 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
           title: editProjTitle.trim(),
           description: editProjDesc.trim(),
           status: editProjStatus,
+          url: editProjUrl.trim() || undefined,
           lastUpdated: new Date().toISOString().split('T')[0]
         };
       }
@@ -582,6 +588,16 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
                                 rows={2}
                               />
                             </div>
+                            <div className="space-y-2">
+                              <label className="block text-[9px] font-bold uppercase tracking-wider text-zinc-500">Project Link / URL (Optional)</label>
+                              <input
+                                type="text"
+                                value={editProjUrl}
+                                onChange={(e) => setEditProjUrl(e.target.value)}
+                                className="w-full text-xs bg-zinc-900 border border-[#3c4043] rounded-lg p-2.5 text-white font-semibold focus:outline-none focus:border-[#8ab4f8]"
+                                placeholder="e.g. https://docs.google.com/..."
+                              />
+                            </div>
                             <div className="flex items-center justify-between border-t border-zinc-750 pt-2.5">
                               <div className="flex items-center gap-2">
                                 <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Status:</span>
@@ -621,6 +637,31 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
                                 <p className="text-sm font-bold text-white leading-tight">{proj.title}</p>
                                 {proj.description && (
                                   <p className="text-xs text-[#9aa0a6] leading-relaxed font-semibold">{proj.description}</p>
+                                )}
+                                
+                                {proj.url ? (
+                                  <div className="mt-2.5">
+                                    <a
+                                      href={proj.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      referrerPolicy="no-referrer"
+                                      className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#81c995] bg-[#81c995]/10 border border-[#81c995]/20 px-2.5 py-1 rounded-md hover:bg-[#81c995]/20 hover:text-white transition-all cursor-pointer"
+                                    >
+                                      <ExternalLink className="w-3 h-3" />
+                                      <span>Project Resource Link</span>
+                                    </a>
+                                  </div>
+                                ) : (
+                                  <div className="mt-2.5">
+                                    <button
+                                      onClick={() => handleStartEditProject(proj)}
+                                      className="inline-flex items-center gap-1.5 text-[10px] font-bold text-zinc-400 hover:text-white bg-[#202124] border border-[#3c4043] hover:border-zinc-500 px-2.5 py-1 rounded-md transition-all cursor-pointer"
+                                    >
+                                      <Plus className="w-3 h-3 text-[#8ab4f8]" />
+                                      <span>Insert Project Link</span>
+                                    </button>
+                                  </div>
                                 )}
                               </div>
                               
@@ -703,16 +744,22 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col md:flex-row gap-2">
                   <input
                     placeholder="Brief objective details or next steps..."
                     value={newProjDesc}
                     onChange={(e) => setNewProjDesc(e.target.value)}
                     className="flex-1 text-xs bg-[#202124] text-white border border-[#3c4043] rounded-xl p-2.5 focus:border-[#8ab4f8] focus:outline-none font-semibold"
                   />
+                  <input
+                    placeholder="Resource URL / Drive Link (Optional)"
+                    value={newProjUrl}
+                    onChange={(e) => setNewProjUrl(e.target.value)}
+                    className="md:w-1/3 text-xs bg-[#202124] text-white border border-[#3c4043] rounded-xl p-2.5 focus:border-[#8ab4f8] focus:outline-none font-semibold"
+                  />
                   <button
                     type="submit"
-                    className="bg-[#81c995] hover:bg-[#a2e0b5] text-[#131314] font-bold text-xs px-4.5 rounded-xl transition-colors flex items-center gap-1.5 shrink-0"
+                    className="bg-[#81c995] hover:bg-[#a2e0b5] text-[#131314] font-bold text-xs px-4.5 rounded-xl transition-colors flex items-center gap-1.5 shrink-0 justify-center h-[38px] md:h-auto"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Launch</span>

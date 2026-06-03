@@ -93,30 +93,29 @@ export const INITIAL_PARTNERS: Partner[] = [
         "name": "Noah Goldfarb",
         "email": "noah_goldfarb@asus.com",
         "role": "Training POC"
+      },
+      {
+        "name": "William Wong",
+        "email": "william1_wong@asus.com",
+        "role": "Account POC"
       }
     ],
     "trainingEngagements": [
-      "Scheduled initial Chromebook Q2 Sync",
-      "OEM Training alignment sync"
+      "ASUS Training Alignment Sync 06.12.26"
     ],
     "projects": [
       {
-        "id": "proj-asus-1",
-        "title": "ASUS Meeting Minutes",
-        "status": "In Progress",
-        "description": "Reviewing current retail model training checklist.",
-        "lastUpdated": "2026-05-18"
-      },
-      {
-        "id": "proj-asus-2",
-        "title": "ASUS Data Tracking",
-        "status": "In Progress",
-        "description": "ChromeOS spec alignment and course performance indices.",
-        "lastUpdated": "2026-05-20"
+        "id": "proj-1780503165052",
+        "title": "OEM Webinar",
+        "description": "07.15.26",
+        "status": "Planning",
+        "url": "https://docs.google.com/presentation/d/1XMWdsNUpYmtoBGcYKVbz8ydrnQXqWKfryJWD_43UaKk/edit?usp=sharing&resourcekey=0-7JXVG57LpmSzkAxzFt6-HA",
+        "lastUpdated": "2026-06-03"
       }
     ],
-    "activityLevel": "High",
-    "sector": "OEM"
+    "activityLevel": "Low",
+    "sector": "OEM",
+    "rawPocText": ""
   },
   {
     "id": "samsung",
@@ -194,28 +193,24 @@ export const INITIAL_PARTNERS: Partner[] = [
         "title": "Monthly HP Syncs",
         "status": "In Progress",
         "description": "Regular alignment on enablement assets and training opportunities.",
-        "lastUpdated": "2026-06-03"
+        "lastUpdated": "2026-06-03",
+        "url": "https://docs.google.com/document/d/1sHbdeYui_-dlLFKHYWW7i4kbrgg8maw2bfS6az05aqg/edit?usp=sharing&resourcekey=0-RMOqJAitFwOH4ErGVSs6ug"
       },
       {
         "id": "proj-hp-2",
         "title": "HP Connect Video",
         "status": "Completed",
         "description": "10 minute video created for HP Connect virtual conference",
-        "lastUpdated": "2026-06-03"
+        "lastUpdated": "2026-06-03",
+        "url": "https://drive.google.com/file/d/1C4cgeupeEHrk3gqyQXgBv_0kVSbqbkOf/view"
       },
       {
         "id": "proj-hp-3",
         "title": "HP Pulse Series",
         "status": "Completed",
         "description": "4-part training series for the \"HP & Chromebook Advantage\" during May-June for HP's field team.",
-        "lastUpdated": "2026-06-03"
-      },
-      {
-        "id": "proj-hp-5",
-        "title": "Spring Assortment SKUs - Lenovo & HP",
-        "status": "In Progress",
-        "description": "Shared project mapping Chromebook and Premium Laptop retail lineups.",
-        "lastUpdated": "2026-05-12"
+        "lastUpdated": "2026-06-03",
+        "url": "https://drive.google.com/drive/folders/1l7ZiivpPCmNDa1ct90UtEQW0RXw3ggk0?usp=drive_link"
       }
     ],
     "activityLevel": "High",
@@ -232,10 +227,16 @@ export const INITIAL_PARTNERS: Partner[] = [
         "name": "Ari Barjesteh",
         "email": "abarjesteh1@lenovo.com",
         "role": "Training POC"
+      },
+      {
+        "name": "Isreal Cruz",
+        "email": "icruz7@lenovo.com",
+        "role": "Account POC"
       }
     ],
     "trainingEngagements": [
-      "Met Ari 5/8, shared basics & Neo platform overview"
+      "Met Ari 5/8, shared basics & Neo platform overview",
+      "Provided B2S FT Training 05.21.26"
     ],
     "projects": [
       {
@@ -243,18 +244,21 @@ export const INITIAL_PARTNERS: Partner[] = [
         "title": "Lenovo Meeting Minutes",
         "status": "In Progress",
         "description": "Regular alignment and Neo feedback consolidation.",
-        "lastUpdated": "2026-05-08"
+        "lastUpdated": "2026-06-03",
+        "url": "https://docs.google.com/document/d/1FmYx-diTbggF5Ksm5kY4XKw4t9TLjaOwy1HlWrd36h8/edit?usp=sharing"
       },
       {
-        "id": "proj-lenovo-2",
-        "title": "Spring Assortment SKUs - Lenovo & HP",
-        "status": "In Progress",
-        "description": "Shared project mapping Chromebook and Premium Laptop retail lineups.",
-        "lastUpdated": "2026-05-12"
+        "id": "proj-1780503269526",
+        "title": "OEM Webinar",
+        "description": "TBD",
+        "status": "Planning",
+        "url": "https://docs.google.com/presentation/d/1aDLpxeirYIgWsjUokEvZS1dey5ebEI2r49Gv01hOEpM/edit?usp=sharing&resourcekey=0-SO5j7uuocFtRuy7VIEjuog",
+        "lastUpdated": "2026-06-03"
       }
     ],
-    "activityLevel": "High",
-    "sector": "OEM"
+    "activityLevel": "Medium",
+    "sector": "OEM",
+    "rawPocText": ""
   },
   {
     "id": "qualcomm",
@@ -278,8 +282,17 @@ export const INITIAL_PARTNERS: Partner[] = [
     "trainingEngagements": [
       "OEM Webinar to Acer team on 05.14.26"
     ],
-    "projects": [],
-    "activityLevel": "Medium",
+    "projects": [
+      {
+        "id": "proj-1780502840877",
+        "title": "Acer OEM Webinar",
+        "description": "05.14.26",
+        "status": "Completed",
+        "url": "https://docs.google.com/presentation/d/1PSsjrs9kNMvdRzu8AyearvUI0-hIdUDGlNTudakxw3w/edit?usp=sharing",
+        "lastUpdated": "2026-06-03"
+      }
+    ],
+    "activityLevel": "Low",
     "sector": "OEM"
   },
   {
@@ -294,7 +307,7 @@ export const INITIAL_PARTNERS: Partner[] = [
         "role": "Training POC (HQ)"
       },
       {
-        "name": "Dan P (FT)",
+        "name": "Dan Pilkington (2020)",
         "email": "danielx.pilkington@intel.com",
         "role": "Training POC (Field Team)"
       },
@@ -307,7 +320,7 @@ export const INITIAL_PARTNERS: Partner[] = [
     "trainingEngagements": [
       "FT Training Sync with Dan P. 04.14.26",
       "SoC Webinar hosted on 06.01.26",
-      "B2S Training Content (for FT)"
+      "B2S Training Content (for FT) on 05.21.26"
     ],
     "projects": [
       {
@@ -315,20 +328,22 @@ export const INITIAL_PARTNERS: Partner[] = [
         "title": "Intel Field Team MMs",
         "status": "In Progress",
         "description": "Field team trainer guidelines and core collateral review.",
-        "lastUpdated": "2026-04-24"
-      },
-      {
-        "id": "proj-1780498133634",
-        "title": "B2S Training Content",
-        "description": "Provided field team B2S training content on 05.21.26",
-        "status": "Completed",
-        "lastUpdated": "2026-06-03"
+        "lastUpdated": "2026-06-03",
+        "url": "https://docs.google.com/document/d/1Jch3fMlskP6QRb7JSjfCcMeg_v_psd3vRytfd0NbG1k/edit?usp=sharing&resourcekey=0-8kSi_b-WF482yBoR-DWFQg"
       },
       {
         "id": "proj-1780498202912",
         "title": "B2S Webinar for FT",
         "description": "Virtual facilitation for Intel field team on 07.17.26",
-        "status": "In Progress",
+        "status": "Planning",
+        "lastUpdated": "2026-06-03"
+      },
+      {
+        "id": "proj-1780503065187",
+        "title": "OEM/SoC Webinar for Intel",
+        "description": "06.01.26 with NA & EMEA teams",
+        "status": "Completed",
+        "url": "https://docs.google.com/presentation/d/1pw_im_gr01jLPT3JG8Et84JXz-yPHcVjdwZBhH6rrRI/edit?usp=sharing",
         "lastUpdated": "2026-06-03"
       }
     ],
@@ -345,7 +360,7 @@ export const INITIAL_PARTNERS: Partner[] = [
       {
         "name": "Amy Bates",
         "email": "amy.bates@walmart.com",
-        "role": "Training POC"
+        "role": "Account POC (Operations)"
       },
       {
         "name": "Jason Turner",
@@ -354,25 +369,27 @@ export const INITIAL_PARTNERS: Partner[] = [
       }
     ],
     "trainingEngagements": [
-      "Met Amy/Jason on 4/20, awaiting next steps from WMT"
+      "Met Amy/Jason on 4/20, awaiting next steps from WMT",
+      "Published Content via SellPro for WMT Associates (optional)"
     ],
     "projects": [
       {
         "id": "proj-1780498549429",
         "title": "Walmart SellPro Content",
         "description": "",
-        "status": "Completed",
-        "lastUpdated": "2026-06-03"
+        "status": "In Progress",
+        "lastUpdated": "2026-06-03",
+        "url": "https://secure.sellpro.net/admin/courses/topic_create_edit?course_id=13418&type=8&topic_id=55537"
       },
       {
         "id": "proj-1780498573274",
         "title": "Walmart Training Content",
-        "description": "Provided DYK Series on 04.20.26",
-        "status": "In Progress",
+        "description": "Provided Foundations Series on 04.21.26\n- What is a CB\n- Recommending a CB\n- Elevating Sales\n- Why Buy Chromebook\n- Value of ChromeOS\n- What's New with Chromebook & Google AI",
+        "status": "Completed",
         "lastUpdated": "2026-06-03"
       }
     ],
-    "activityLevel": "Medium",
+    "activityLevel": "Low",
     "sector": "Retailer"
   },
   {

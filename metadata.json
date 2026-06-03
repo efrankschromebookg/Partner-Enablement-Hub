@@ -1,6 +1,6 @@
 {
-  "name": "RPM & Partner One-Stop",
-  "description": "Centralized platform managing partner contacts, training efforts, active projects, and RPM ownership.",
+  "name": "Partner Training & Enablement",
+  "description": "Centralized Chromebook Partner Management System for tracking points of contact, training engagement, and enablement logs in real-time.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -77,7 +77,7 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
                   <span className="w-2 h-2 rounded-full bg-[#34A853]"></span>
                 </div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-[#9aa0a6] pl-1">
-                  Partner Relations &amp; Enablement
+                  Partner Training &amp; Enablement
                 </p>
               </div>
               
@@ -86,7 +86,7 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
               </h1>
 
               <p className="text-xs md:text-sm text-[#9aa0a6] hover:text-zinc-300 transition-colors mt-2 leading-relaxed max-w-3xl">
-                Centralized Google partner manager for tracking Point of Contacts, webinars, and Chromebook enablement logs in real-time.
+                Centralized Chromebook Partner Management System for tracking points of contact, training engagement, and enablement logs in real-time.
               </p>
             </div>
             

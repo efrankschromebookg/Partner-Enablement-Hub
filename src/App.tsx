@@ -34,85 +34,17 @@ import EnablementHub from './components/EnablementHub.tsx';
 export default function App() {
   // --- Master State Loads ---
   const [partners, setPartners] = useState<Partner[]>(() => {
-    const saved = localStorage.getItem('rpm_partners_v3');
-    if (saved) {
-      const parsed: Partner[] = JSON.parse(saved);
-      const partnersToMove = ['samsung', 'mediatek', 'amd', 'qualcomm'];
-      let migrationNeeded = false;
-      const migrated = parsed.map(p => {
-        if (partnersToMove.includes(p.id.toLowerCase()) && p.tier !== 'Longtail') {
-          migrationNeeded = true;
-          return { ...p, tier: 'Longtail' as const };
-        }
-        if (p.id.toLowerCase() === 'walmart' && p.tier !== 'Priority') {
-          migrationNeeded = true;
-          return { ...p, tier: 'Priority' as const };
-        }
-        return p;
-      });
-      if (migrationNeeded) {
-        localStorage.setItem('rpm_partners_v3', JSON.stringify(migrated));
-        return migrated;
-      }
-      return parsed;
-    }
-    return INITIAL_PARTNERS;
+    const saved = localStorage.getItem('rpm_partners_v4');
+    return saved ? JSON.parse(saved) : INITIAL_PARTNERS;
   });
 
   const [rpms, setRpms] = useState<RPM[]>(() => {
-    const saved = localStorage.getItem('rpm_rpms_v3');
-    if (saved) {
-      const parsed: RPM[] = JSON.parse(saved);
-      const partnersToMove = ['Samsung', 'MediaTek', 'AMD', 'Qualcomm'];
-      let migrationNeeded = false;
-      const migrated = parsed.map(r => {
-        let finalEmail = r.email;
-        let changedEmail = false;
-        if (r.email && r.email.endsWith('@cb-retail.com')) {
-          finalEmail = r.email.replace('@cb-retail.com', '@google.com');
-          changedEmail = true;
-          migrationNeeded = true;
-        }
-        const intersection = r.priorityPartners.filter(p => partnersToMove.includes(p));
-        let updatedPriority = [...r.priorityPartners];
-        let updatedLongtail = [...r.longtailPartners];
-        
-        if (intersection.length > 0) {
-          migrationNeeded = true;
-          updatedPriority = updatedPriority.filter(p => !partnersToMove.includes(p));
-          const addedLongtail = intersection.filter(p => !updatedLongtail.includes(p));
-          updatedLongtail = [...updatedLongtail, ...addedLongtail];
-        }
-
-        if (r.id === 'ren-laurenceau') {
-          if (!updatedPriority.includes('Walmart') || updatedLongtail.includes('Walmart')) {
-            migrationNeeded = true;
-            updatedPriority = [...updatedPriority.filter(p => p !== 'Walmart'), 'Walmart'];
-            updatedLongtail = updatedLongtail.filter(p => p !== 'Walmart');
-          }
-        }
-
-        if (intersection.length > 0 || changedEmail || r.id === 'ren-laurenceau') {
-          return {
-            ...r,
-            email: finalEmail,
-            priorityPartners: updatedPriority,
-            longtailPartners: updatedLongtail
-          };
-        }
-        return r;
-      });
-      if (migrationNeeded) {
-        localStorage.setItem('rpm_rpms_v3', JSON.stringify(migrated));
-        return migrated;
-      }
-      return parsed;
-    }
-    return INITIAL_RPMS;
+    const saved = localStorage.getItem('rpm_rpms_v4');
+    return saved ? JSON.parse(saved) : INITIAL_RPMS;
   });
 
   const [resources, setResources] = useState<TrainingResource[]>(() => {
-    const saved = localStorage.getItem('rpm_resources_v3');
+    const saved = localStorage.getItem('rpm_resources_v4');
     return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
   });
 
@@ -132,15 +64,15 @@ export default function App() {
 
   // --- Save Persistence effects ---
   useEffect(() => {
-    localStorage.setItem('rpm_partners_v3', JSON.stringify(partners));
+    localStorage.setItem('rpm_partners_v4', JSON.stringify(partners));
   }, [partners]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_rpms_v3', JSON.stringify(rpms));
+    localStorage.setItem('rpm_rpms_v4', JSON.stringify(rpms));
   }, [rpms]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_resources_v3', JSON.stringify(resources));
+    localStorage.setItem('rpm_resources_v4', JSON.stringify(resources));
   }, [resources]);
 
   // --- State Reset Utility ---
@@ -283,16 +215,6 @@ export default function App() {
               {activeTab === 'enablement' && <span className="w-1.5 h-1.5 rounded-full bg-[#34A853]"></span>}
             </button>
           </div>
-
-          {/* Reset button to baseline with elegant dark theme styles */}
-          <button
-            onClick={handleResetToSeedData}
-            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-zinc-400 hover:text-white bg-[#202124] hover:bg-zinc-800 px-4 py-2.5 rounded-full border border-[#3c4043] transition-all cursor-pointer"
-            title="Reset to 2026 spreadsheet snapshot baseline"
-          >
-            <RefreshCw className="w-3.5 h-3.5 text-[#FBBC05]" />
-            <span>Reset Baseline Snapshot</span>
-          </button>
 
           {/* Export Live Updates button */}
           <button
