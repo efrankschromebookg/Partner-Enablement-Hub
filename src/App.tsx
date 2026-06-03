@@ -34,17 +34,17 @@ import EnablementHub from './components/EnablementHub.tsx';
 export default function App() {
   // --- Master State Loads ---
   const [partners, setPartners] = useState<Partner[]>(() => {
-    const saved = localStorage.getItem('rpm_partners_v4');
+    const saved = localStorage.getItem('rpm_partners_v8');
     return saved ? JSON.parse(saved) : INITIAL_PARTNERS;
   });
 
   const [rpms, setRpms] = useState<RPM[]>(() => {
-    const saved = localStorage.getItem('rpm_rpms_v4');
+    const saved = localStorage.getItem('rpm_rpms_v8');
     return saved ? JSON.parse(saved) : INITIAL_RPMS;
   });
 
   const [resources, setResources] = useState<TrainingResource[]>(() => {
-    const saved = localStorage.getItem('rpm_resources_v4');
+    const saved = localStorage.getItem('rpm_resources_v8');
     return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
   });
 
@@ -64,15 +64,15 @@ export default function App() {
 
   // --- Save Persistence effects ---
   useEffect(() => {
-    localStorage.setItem('rpm_partners_v4', JSON.stringify(partners));
+    localStorage.setItem('rpm_partners_v8', JSON.stringify(partners));
   }, [partners]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_rpms_v4', JSON.stringify(rpms));
+    localStorage.setItem('rpm_rpms_v8', JSON.stringify(rpms));
   }, [rpms]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_resources_v4', JSON.stringify(resources));
+    localStorage.setItem('rpm_resources_v8', JSON.stringify(resources));
   }, [resources]);
 
   // --- State Reset Utility ---
@@ -363,10 +363,11 @@ export default function App() {
                               <a
                                 href={rpm.driveUrl}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 referrerPolicy="no-referrer"
                                 className="inline-flex items-center gap-1.5 text-xs text-zinc-300 font-bold bg-[#202124] border border-zinc-700/80 hover:border-zinc-500 hover:text-white px-3.5 py-1.5 rounded-full transition-all"
                               >
-                                <span className="w-1.5 h-1.5 bg-[#fdd663] rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-[#81c995] rounded-full"></span>
                                 <span>Drive Workspace</span>
                                 <ExternalLink className="w-3 h-3 text-zinc-500" />
                               </a>
@@ -378,7 +379,7 @@ export default function App() {
                             {rpmPriorityPartners.length > 0 ? (
                               <div className="space-y-3.5">
                                 {rpmPriorityPartners.map(p => {
-                                  const pendingProjects = p.projects.filter(proj => proj.status !== 'Completed');
+                                  const allProjects = p.projects;
                                   return (
                                     <div 
                                       key={p.id}
@@ -414,13 +415,13 @@ export default function App() {
                                       )}
 
                                       {/* Projects embedded list */}
-                                      {pendingProjects.length > 0 && (
+                                      {allProjects.length > 0 && (
                                         <div className="mt-3 pt-3 border-t border-[#2e3033]">
                                           <span className="text-[9px] tracking-normal uppercase font-bold text-[#81c995] block mb-1.5">
-                                            Live Alignments ({pendingProjects.length})
+                                            Live Assignments &amp; Initiatives ({allProjects.length})
                                           </span>
                                           <ul className="space-y-1">
-                                            {pendingProjects.map(proj => (
+                                            {allProjects.map(proj => (
                                               <li key={proj.id} className="text-xs text-zinc-300 flex items-center gap-1.5 truncate font-semibold">
                                                 <span className={`w-1.5 h-1.5 rounded-full ${
                                                   proj.status === 'Completed' ? 'bg-[#81c995]' :

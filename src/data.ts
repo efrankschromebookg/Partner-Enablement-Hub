@@ -4,7 +4,7 @@ export const INITIAL_RPMS: RPM[] = [
   {
     "id": "allen-dinh",
     "name": "Allen Dinh",
-    "driveUrl": "https://drive.google.com/drive/folders/allen-dinh-records",
+    "driveUrl": "https://drive.google.com/drive/folders/1-_rk3lUp_N1Z8VeE_q_9uWJAtRcSEiI9?usp=drive_link",
     "email": "adinh@google.com",
     "priorityPartners": [
       "ASUS"
@@ -25,7 +25,7 @@ export const INITIAL_RPMS: RPM[] = [
   {
     "id": "sagar-shah",
     "name": "Sagar Shah",
-    "driveUrl": "https://drive.google.com/drive/folders/sagar-shah-records",
+    "driveUrl": "https://drive.google.com/drive/folders/1n7nbuV9qzHT6JJLNS4PRZptuBdTuNTKc?usp=drive_link",
     "email": "sshah@google.com",
     "priorityPartners": [
       "HP",
@@ -46,7 +46,7 @@ export const INITIAL_RPMS: RPM[] = [
   {
     "id": "kelly-granchalek",
     "name": "Kelly Granchalek",
-    "driveUrl": "https://drive.google.com/drive/folders/kelly-granchalek-records",
+    "driveUrl": "https://drive.google.com/drive/folders/1oNAdVSb_9g3k-ZqrEy94-_oH-ucnYz1v?usp=drive_link",
     "email": "kgranchalek@google.com",
     "priorityPartners": [
       "Acer",
@@ -69,7 +69,7 @@ export const INITIAL_RPMS: RPM[] = [
   {
     "id": "ren-laurenceau",
     "name": "Ren Laurenceau",
-    "driveUrl": "https://drive.google.com/drive/folders/ren-laurenceau-records",
+    "driveUrl": "https://drive.google.com/drive/folders/1YxZEcMT6mjGwrCK-cSavsAnMct1wnsOS?usp=drive_link",
     "email": "rlaurenceau@google.com",
     "priorityPartners": [
       "Walmart"
@@ -185,7 +185,8 @@ export const INITIAL_PARTNERS: Partner[] = [
     "trainingEngagements": [
       "Monthly syncs",
       "HP Connect \"Main Stage\" Facilitation",
-      "HP & Chromebook Advantage Series on Pulse"
+      "HP & Chromebook Advantage Series on Pulse",
+      "Provided B2S FT Content on 05.21.26"
     ],
     "projects": [
       {
@@ -278,7 +279,7 @@ export const INITIAL_PARTNERS: Partner[] = [
     "rpmId": "kelly-granchalek",
     "tier": "Priority",
     "pocs": [],
-    "rawPocText": "waiting on Kelly",
+    "rawPocText": "TBD",
     "trainingEngagements": [
       "OEM Webinar to Acer team on 05.14.26"
     ],
@@ -674,8 +675,8 @@ export const INITIAL_RESOURCES: TrainingResource[] = [
     "id": "res-library",
     "name": "[EXT] Training Resources Library",
     "type": "Library",
-    "url": "https://docs.google.com/spreadsheets/d/mock-trix-resources",
-    "lastUpdated": "May 8th",
+    "url": "https://sites.google.com/google.com/partner-training-resources/home",
+    "lastUpdated": "June 3rd",
     "status": "Updated",
     "audience": "External Shared",
     "description": "Central trix repository featuring shared enablement models and training resources."
@@ -684,9 +685,9 @@ export const INITIAL_RESOURCES: TrainingResource[] = [
     "id": "res-oem-deck",
     "name": "OEM/SoC Webinar Deck",
     "type": "Deck",
-    "url": "https://docs.google.com/presentation/d/mock-oem-soc-webinar-deck",
-    "lastUpdated": "WIP",
-    "status": "WIP",
+    "url": "https://docs.google.com/presentation/d/1gvAl5rHBWCJSEQIoOfxRTJTG48vTXftJLMYmEYIamh4/edit?usp=sharing",
+    "lastUpdated": "June 1",
+    "status": "FINAL",
     "audience": "External Shared",
     "description": "Webinar slides highlighting OEM integrations and SoC platform benefits."
   },
@@ -694,7 +695,7 @@ export const INITIAL_RESOURCES: TrainingResource[] = [
     "id": "res-strategy-deck",
     "name": "Partner Training Strategy Deck",
     "type": "Deck",
-    "url": "https://docs.google.com/presentation/d/mock-partner-training-strategy-deck",
+    "url": "https://docs.google.com/presentation/d/1hpIT_T-92P13pgmoWFAzQfiPwk6feIXPu7CGg5XiVGQ/edit?usp=sharing&resourcekey=0-fc0hhWfxUGxqyV9g1DEFkQ",
     "lastUpdated": "May 1st",
     "status": "FINAL",
     "audience": "Internal Only",

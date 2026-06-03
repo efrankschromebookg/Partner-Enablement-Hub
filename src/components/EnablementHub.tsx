@@ -236,15 +236,6 @@ export default function EnablementHub({ resources, onAddResource, onDeleteResour
               </span>
 
               <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  onClick={() => onDeleteResource(res.id)}
-                  className="p-1.5 hover:bg-red-950/30 text-zinc-500 hover:text-[#f28b82] rounded-full transition-colors"
-                  title="Remove catalog listing"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-                
                 <a
                   href={res.url}
                   target="_blank"

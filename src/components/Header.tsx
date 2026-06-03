@@ -90,16 +90,6 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
               </p>
             </div>
             
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                id="add-partner-btn"
-                onClick={onAddPartner}
-                className="inline-flex items-center justify-center gap-2 bg-[#8ab4f8] hover:bg-[#a8c7fa] text-[#131314] font-black text-xs md:text-sm px-6 py-3.5 rounded-full transition-all shadow-md shadow-[rgba(138,180,248,0.2)] hover:scale-[1.015] active:scale-95 cursor-pointer"
-              >
-                <Users className="w-4 h-4 shrink-0" />
-                <span>Register New Corporate Account</span>
-              </button>
-            </div>
           </div>
 
           {/* KPI Grid - Beautifully mapped in Chromebook Rainbow Cycle Order */}

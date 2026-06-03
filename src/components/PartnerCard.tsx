@@ -95,7 +95,7 @@ export default function PartnerCard({ partner, rpm, onSelect }: PartnerCardProps
           
           {partner.pocs.length > 0 ? (
             <div className="space-y-2">
-              {partner.pocs.slice(0, 2).map((poc, idx) => (
+              {partner.pocs.map((poc, idx) => (
                 <div key={idx} className="flex items-center justify-between gap-2 text-xs bg-[#202124] p-2 rounded-xl border border-zinc-700/40">
                   <div className="truncate max-w-[155px]">
                     <span className="font-bold text-[#e3e3e3] block truncate">{poc.name}</span>
@@ -121,11 +121,6 @@ export default function PartnerCard({ partner, rpm, onSelect }: PartnerCardProps
                   </div>
                 </div>
               ))}
-              {partner.pocs.length > 2 && (
-                <p className="text-[11px] text-zinc-500 italic text-center font-medium">
-                  + {partner.pocs.length - 2} more Point of Contacts
-                </p>
-              )}
             </div>
           ) : (
             <p className="text-xs font-medium text-zinc-400 italic bg-[#202124] p-2 rounded-xl border border-zinc-800">
