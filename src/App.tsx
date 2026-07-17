@@ -34,17 +34,17 @@ import EnablementHub from './components/EnablementHub.tsx';
 export default function App() {
   // --- Master State Loads ---
   const [partners, setPartners] = useState<Partner[]>(() => {
-    const saved = localStorage.getItem('rpm_partners_v8');
+    const saved = localStorage.getItem('rpm_partners_v9');
     return saved ? JSON.parse(saved) : INITIAL_PARTNERS;
   });
 
   const [rpms, setRpms] = useState<RPM[]>(() => {
-    const saved = localStorage.getItem('rpm_rpms_v8');
+    const saved = localStorage.getItem('rpm_rpms_v9');
     return saved ? JSON.parse(saved) : INITIAL_RPMS;
   });
 
   const [resources, setResources] = useState<TrainingResource[]>(() => {
-    const saved = localStorage.getItem('rpm_resources_v8');
+    const saved = localStorage.getItem('rpm_resources_v9');
     return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
   });
 
@@ -64,15 +64,15 @@ export default function App() {
 
   // --- Save Persistence effects ---
   useEffect(() => {
-    localStorage.setItem('rpm_partners_v8', JSON.stringify(partners));
+    localStorage.setItem('rpm_partners_v9', JSON.stringify(partners));
   }, [partners]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_rpms_v8', JSON.stringify(rpms));
+    localStorage.setItem('rpm_rpms_v9', JSON.stringify(rpms));
   }, [rpms]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_resources_v8', JSON.stringify(resources));
+    localStorage.setItem('rpm_resources_v9', JSON.stringify(resources));
   }, [resources]);
 
   // --- State Reset Utility ---
