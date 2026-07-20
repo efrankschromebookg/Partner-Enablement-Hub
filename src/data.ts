@@ -90,11 +90,6 @@ export const INITIAL_PARTNERS: Partner[] = [
     "tier": "Priority",
     "pocs": [
       {
-        "name": "Noah Goldfarb",
-        "email": "noah_goldfarb@asus.com",
-        "role": "Training POC"
-      },
-      {
         "name": "William Wong",
         "email": "william1_wong@asus.com",
         "role": "Account POC"
@@ -107,10 +102,10 @@ export const INITIAL_PARTNERS: Partner[] = [
       {
         "id": "proj-1780503165052",
         "title": "OEM Webinar",
-        "description": "07.15.26",
-        "status": "Planning",
+        "description": "Attended by 32 ASUS team members",
+        "status": "Completed",
         "url": "https://docs.google.com/presentation/d/1XMWdsNUpYmtoBGcYKVbz8ydrnQXqWKfryJWD_43UaKk/edit?usp=sharing&resourcekey=0-7JXVG57LpmSzkAxzFt6-HA",
-        "lastUpdated": "2026-06-03"
+        "lastUpdated": "2026-07-20"
       }
     ],
     "activityLevel": "Low",
@@ -201,16 +196,16 @@ export const INITIAL_PARTNERS: Partner[] = [
         "id": "proj-hp-2",
         "title": "HP Connect Video",
         "status": "Completed",
-        "description": "10 minute video created for HP Connect virtual conference",
-        "lastUpdated": "2026-06-03",
+        "description": "10 minute video created for HP Connect virtual conference. The presentation was shown to 567 HP team members and received an average CSAT of 4.63 out of 5.",
+        "lastUpdated": "2026-07-20",
         "url": "https://drive.google.com/file/d/1C4cgeupeEHrk3gqyQXgBv_0kVSbqbkOf/view"
       },
       {
         "id": "proj-hp-3",
         "title": "HP Pulse Series",
         "status": "Completed",
-        "description": "4-part training series for the \"HP & Chromebook Advantage\" during May-June for HP's field team.",
-        "lastUpdated": "2026-06-03",
+        "description": "4-part training series for the \"HP & Chromebook Advantage\" during May-June for HP's field team. +90 attendees per training, totaling +360 trained HP reps.",
+        "lastUpdated": "2026-07-20",
         "url": "https://drive.google.com/drive/folders/1l7ZiivpPCmNDa1ct90UtEQW0RXw3ggk0?usp=drive_link"
       }
     ],
@@ -255,6 +250,14 @@ export const INITIAL_PARTNERS: Partner[] = [
         "status": "Planning",
         "url": "https://docs.google.com/presentation/d/1aDLpxeirYIgWsjUokEvZS1dey5ebEI2r49Gv01hOEpM/edit?usp=sharing&resourcekey=0-SO5j7uuocFtRuy7VIEjuog",
         "lastUpdated": "2026-06-03"
+      },
+      {
+        "id": "proj-lenovo-2",
+        "title": "B2S Field Team Training",
+        "status": "Completed",
+        "description": "Chromebook & Gemini back to School themed content, Trained 60 Lenovo Field Team reps",
+        "url": "https://docs.google.com/presentation/d/1mJWZH1jT4jme06wB_FH37Tb3mpwzowM4y2j_prcDWbs/edit?usp=drive_link",
+        "lastUpdated": "2026-07-20"
       }
     ],
     "activityLevel": "Medium",
@@ -287,10 +290,10 @@ export const INITIAL_PARTNERS: Partner[] = [
       {
         "id": "proj-1780502840877",
         "title": "Acer OEM Webinar",
-        "description": "05.14.26",
+        "description": "05.14.26. Attended by 12 Acer team members.",
         "status": "Completed",
         "url": "https://docs.google.com/presentation/d/1PSsjrs9kNMvdRzu8AyearvUI0-hIdUDGlNTudakxw3w/edit?usp=sharing",
-        "lastUpdated": "2026-06-03"
+        "lastUpdated": "2026-07-20"
       }
     ],
     "activityLevel": "Low",
@@ -321,7 +324,8 @@ export const INITIAL_PARTNERS: Partner[] = [
     "trainingEngagements": [
       "FT Training Sync with Dan P. 04.14.26",
       "SoC Webinar hosted on 06.01.26",
-      "B2S Training Content (for FT) on 05.21.26"
+      "B2S Training Content (for FT) on 05.21.26",
+      "Googlebook & iRep Planning 06.17.26 - https://docs.google.com/document/d/17fyW8LQ-RNH0pznLvrwBGu_gnUGXJ2nmS0-06QogeTo/edit?usp=sharing&resourcekey=0-bL-DLsQRUrpqwmbjl5kLcQ"
     ],
     "projects": [
       {
@@ -335,17 +339,18 @@ export const INITIAL_PARTNERS: Partner[] = [
       {
         "id": "proj-1780498202912",
         "title": "B2S Webinar for FT",
-        "description": "Virtual facilitation for Intel field team on 07.17.26",
-        "status": "Planning",
-        "lastUpdated": "2026-06-03"
+        "description": "Trained 75 Intel Field Team reps",
+        "status": "Completed",
+        "url": "https://docs.google.com/presentation/d/16VJ6rKhB8Aqi2Arc0eiaq3Jht2qebyOJelsqMkhwH7E/edit?usp=drive_link",
+        "lastUpdated": "2026-07-20"
       },
       {
         "id": "proj-1780503065187",
         "title": "OEM/SoC Webinar for Intel",
-        "description": "06.01.26 with NA & EMEA teams",
+        "description": "06.01.26 with NA & EMEA teams. Attended by 18 Intel team members.",
         "status": "Completed",
         "url": "https://docs.google.com/presentation/d/1pw_im_gr01jLPT3JG8Et84JXz-yPHcVjdwZBhH6rrRI/edit?usp=sharing",
-        "lastUpdated": "2026-06-03"
+        "lastUpdated": "2026-07-20"
       }
     ],
     "activityLevel": "High",

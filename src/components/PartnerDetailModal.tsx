@@ -504,21 +504,48 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
 
                 {partner.trainingEngagements.length > 0 ? (
                   <div className="space-y-2.5 pb-1">
-                    {partner.trainingEngagements.map((eng, idx) => (
-                      <div key={idx} className="flex items-start justify-between p-3 rounded-xl border border-zinc-700/40 bg-[#202124] hover:bg-[#282a2d] transition-colors gap-2">
-                        <div className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-[#81c995] shrink-0 mt-0.5" />
-                          <p className="text-xs text-zinc-300 font-semibold leading-relaxed">{eng}</p>
+                    {partner.trainingEngagements.map((eng, idx) => {
+                      const { cleanText, url } = (() => {
+                        const urlRegex = /(https?:\/\/[^\s]+)/g;
+                        const match = eng.match(urlRegex);
+                        if (match) {
+                          const url = match[0];
+                          const cleanText = eng.replace(url, '').replace(/\s*-\s*$/, '').trim();
+                          return { cleanText, url };
+                        }
+                        return { cleanText: eng, url: null };
+                      })();
+
+                      return (
+                        <div key={idx} className="flex items-start justify-between p-3 rounded-xl border border-zinc-700/40 bg-[#202124] hover:bg-[#282a2d] transition-colors gap-2">
+                          <div className="flex items-start gap-2 flex-1 min-w-0">
+                            <Check className="w-4 h-4 text-[#81c995] shrink-0 mt-0.5" />
+                            <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                              <p className="text-xs text-zinc-300 font-semibold leading-relaxed break-words">{cleanText}</p>
+                              {url && (
+                                <a
+                                  href={url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  referrerPolicy="no-referrer"
+                                  className="inline-flex items-center text-[#81c995] hover:text-[#a2e0b5] transition-colors p-0.5"
+                                  title="View doc"
+                                >
+                                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleDeleteEngagement(idx)}
+                            className="p-1 text-[#f28b82] hover:bg-red-950/20 rounded-full transition-colors shrink-0"
+                            title="Delete effort log"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                        <button
-                          onClick={() => handleDeleteEngagement(idx)}
-                          className="p-1 text-[#f28b82] hover:bg-red-950/20 rounded-full transition-colors shrink-0"
-                          title="Delete effort log"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="p-4 border border-dashed border-zinc-700 bg-[#202124]/40 text-zinc-500 text-xs italic text-center rounded-xl">
