@@ -324,7 +324,7 @@ export default function App() {
                 </div>
                 
                 <div className="text-xs font-bold px-3 py-1.5 bg-zinc-800 text-zinc-300 border border-zinc-700/60 rounded-full">
-                  Updated: <span className="font-extrabold text-[#81c995] uppercase tracking-wide">Q2 2026 Active Sync</span>
+                  Updated: <span className="font-extrabold text-[#81c995] uppercase tracking-wide">Q3 2026 Active Sync</span>
                 </div>
               </div>
 

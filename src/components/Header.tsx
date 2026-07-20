@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Briefcase, GraduationCap, TrendingUp } from 'lucide-react';
+import { Users, Briefcase, GraduationCap, CheckCircle } from 'lucide-react';
 import { Partner, RPM } from '../types';
 
 interface HeaderProps {
@@ -16,8 +16,8 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
   // Total active projects across all partners
   const totalProjects = partners.reduce((sum, p) => sum + p.projects.filter(proj => proj.status !== 'Completed').length, 0);
   
-  // Partners with High Activity
-  const highActivityCount = partners.filter(p => p.activityLevel === 'High').length;
+  // Total completed projects across all partners
+  const completedProjectsCount = partners.reduce((sum, p) => sum + p.projects.filter(proj => proj.status === 'Completed').length, 0);
   
   // Partner training coverage (partners with at least 1 training engagement)
   const trainedPartnersCount = partners.filter(p => p.trainingEngagements.length > 0).length;
@@ -132,25 +132,25 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
               </div>
             </div>
 
-            {/* Card 3: High Engagement - Yellow (#FBBC05) */}
-            <div className="bg-[#202124] p-4.5 rounded-2xl border border-[#3c4043] hover:border-[#FBBC05]/60 transition-all duration-300 flex items-start gap-3.5 relative overflow-hidden group hover:translate-y-[-2px] shadow-md">
-              <div className="absolute top-0 bottom-0 left-0 w-[4.5px] bg-[#FBBC05]"></div>
-              <div className="p-2.5 rounded-xl bg-[#FBBC05]/10 text-[#fdd663] border border-[#FBBC05]/20 group-hover:bg-[#FBBC05]/15 transition-colors">
-                <TrendingUp className="w-5 h-5" />
+            {/* Card 3: Completed Projects - Green (#34A853) */}
+            <div className="bg-[#202124] p-4.5 rounded-2xl border border-[#3c4043] hover:border-[#34A853]/60 transition-all duration-300 flex items-start gap-3.5 relative overflow-hidden group hover:translate-y-[-2px] shadow-md">
+              <div className="absolute top-0 bottom-0 left-0 w-[4.5px] bg-[#34A853]"></div>
+              <div className="p-2.5 rounded-xl bg-[#34A853]/10 text-[#81c995] border border-[#34A853]/20 group-hover:bg-[#34A853]/15 transition-colors">
+                <CheckCircle className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#9aa0a6] block uppercase tracking-wider">High Activity</span>
+                <span className="text-[10px] font-bold text-[#9aa0a6] block uppercase tracking-wider">Completed Projects</span>
                 <div className="flex items-baseline gap-1.5 mt-1">
-                  <span className="text-lg md:text-xl font-black text-white">{highActivityCount}</span>
-                  <span className="text-[10px] text-zinc-400 font-bold bg-[#131314] border border-zinc-700/50 px-1.5 py-0.5 rounded">Accounts</span>
+                  <span className="text-lg md:text-xl font-black text-white">{completedProjectsCount}</span>
+                  <span className="text-[10px] text-zinc-400 font-bold bg-[#131314] border border-zinc-700/50 px-1.5 py-0.5 rounded">Completed</span>
                 </div>
               </div>
             </div>
 
-            {/* Card 4: Touchpoint coverage - Green (#34A853) */}
-            <div className="bg-[#202124] p-4.5 rounded-2xl border border-[#3c4043] hover:border-[#34A853]/60 transition-all duration-300 flex items-start gap-3.5 relative overflow-hidden group hover:translate-y-[-2px] shadow-md">
-              <div className="absolute top-0 bottom-0 left-0 w-[4.5px] bg-[#34A853]"></div>
-              <div className="p-2.5 rounded-xl bg-[#34A853]/10 text-[#81c995] border border-[#34A853]/20 group-hover:bg-[#34A853]/15 transition-colors">
+            {/* Card 4: Touchpoint coverage - Yellow (#FBBC05) */}
+            <div className="bg-[#202124] p-4.5 rounded-2xl border border-[#3c4043] hover:border-[#FBBC05]/60 transition-all duration-300 flex items-start gap-3.5 relative overflow-hidden group hover:translate-y-[-2px] shadow-md">
+              <div className="absolute top-0 bottom-0 left-0 w-[4.5px] bg-[#FBBC05]"></div>
+              <div className="p-2.5 rounded-xl bg-[#FBBC05]/10 text-[#fdd663] border border-[#FBBC05]/20 group-hover:bg-[#FBBC05]/15 transition-colors">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div>
@@ -158,7 +158,7 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
                 <div className="flex flex-col gap-1.5 mt-1">
                   <span className="text-lg md:text-xl font-black text-white">100%</span>
                   <div className="flex flex-wrap gap-1">
-                    <span className="text-[9px] text-[#81c995] font-semibold bg-[#137333]/20 border border-[#81c995]/30 px-1.5 py-0.5 rounded">
+                    <span className="text-[9px] text-[#fdd663] font-semibold bg-[#FBBC05]/10 border border-[#FBBC05]/30 px-1.5 py-0.5 rounded">
                       4/4 Teams Active
                     </span>
                     <span className="text-[9px] text-zinc-400 font-semibold bg-[#131314] border border-zinc-700/50 px-1.5 py-0.5 rounded">
