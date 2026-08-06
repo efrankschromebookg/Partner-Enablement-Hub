@@ -1,6 +1,7 @@
 import React from 'react';
 import { User, Briefcase, GraduationCap, Copy, Check, Mail, ExternalLink } from 'lucide-react';
 import { Partner, RPM } from '../types';
+import FieldTeamTooltip from './FieldTeamTooltip.tsx';
 
 interface PartnerCardProps {
   key?: string;
@@ -73,9 +74,11 @@ export default function PartnerCard({ partner, rpm, onSelect }: PartnerCardProps
 
         {/* Partner Name & RPM assignment */}
         <div className="mb-4">
-          <h3 className="text-base md:text-lg font-bold text-white group-hover:text-[#8ab4f8] transition-colors leading-tight">
-            {partner.name}
-          </h3>
+          <FieldTeamTooltip partnerName={partner.name}>
+            <h3 className="text-base md:text-lg font-bold text-white group-hover:text-[#8ab4f8] transition-colors leading-tight inline-block">
+              {partner.name}
+            </h3>
+          </FieldTeamTooltip>
           
           {rpm && (
             <div className="inline-flex items-center gap-1.5 mt-2 text-xs text-[#9aa0a6] bg-[#2d2e30]/60 py-1 pl-1 pr-2.5 rounded-full border border-zinc-700/50">

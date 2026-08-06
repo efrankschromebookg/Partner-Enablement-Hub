@@ -28,6 +28,7 @@ import { INITIAL_RPMS, INITIAL_PARTNERS, INITIAL_RESOURCES } from './data';
 import Header from './components/Header.tsx';
 import PartnerCard from './components/PartnerCard.tsx';
 import PartnerDetailModal from './components/PartnerDetailModal.tsx';
+import FieldTeamTooltip from './components/FieldTeamTooltip.tsx';
 import AddPartnerModal from './components/AddPartnerModal.tsx';
 import EnablementHub from './components/EnablementHub.tsx';
 
@@ -319,7 +320,7 @@ export default function App() {
                     <span>Individual Account Outlook</span>
                   </h2>
                   <p className="text-xs text-[#9aa0a6] mt-1">
-                    Complete live roster detailing priority partner assignments, key alignment initiatives, and Regional Partner Manager (RPM) ownership.
+                    Complete live roster detailing priority partner assignments, key alignment initiatives, and Regional Partner Manager (RPM) ownership. <span className="text-[#8ab4f8] font-semibold">Hover over any account to view US Field Team coverage.</span>
                   </p>
                 </div>
                 
@@ -381,61 +382,62 @@ export default function App() {
                                 {rpmPriorityPartners.map(p => {
                                   const allProjects = p.projects;
                                   return (
-                                    <div 
-                                      key={p.id}
-                                      onClick={() => setSelectedPartner(p)}
-                                      className="group border border-[#3c4043]/80 rounded-2xl p-4 bg-[#202124] hover:border-[#8ab4f8] transition-all cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.1)]"
-                                    >
-                                      <div className="flex items-center justify-between mb-2">
-                                        <p className="font-extrabold text-white group-hover:text-[#8ab4f8] transition-colors flex items-center gap-1 text-sm">
-                                          <span>{p.name}</span>
-                                          <ChevronRight className="w-3.5 h-3.5 text-zinc-500 group-hover:translate-x-0.5 transition-transform" />
-                                        </p>
-                                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase ${
-                                          p.activityLevel === 'High' ? 'bg-red-950/50 text-[#f28b82] border-red-900/30' :
-                                          p.activityLevel === 'Medium' ? 'bg-yellow-950/30 text-[#fdd663] border-yellow-900/30' :
-                                          'bg-zinc-800 text-zinc-400 border-zinc-700'
-                                        }`}>
-                                          {p.activityLevel} Activity
-                                        </span>
-                                      </div>
-
-                                      {/* Contacts brief list */}
-                                      {p.pocs.length > 0 ? (
-                                        <div className="text-zinc-400 text-xs leading-relaxed mt-1">
-                                          <span className="font-bold text-zinc-500 uppercase text-[9px] tracking-wider block mb-0.5">Point of Contacts</span>
-                                          <p className="truncate text-zinc-300 font-semibold">
-                                            {p.pocs.map(poc => `${poc.name}`).join(', ')}
+                                    <FieldTeamTooltip key={p.id} partnerName={p.name} className="w-full">
+                                      <div 
+                                        onClick={() => setSelectedPartner(p)}
+                                        className="group border border-[#3c4043]/80 rounded-2xl p-4 bg-[#202124] hover:border-[#8ab4f8] transition-all cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.1)] w-full text-left"
+                                      >
+                                        <div className="flex items-center justify-between mb-2">
+                                          <p className="font-extrabold text-white group-hover:text-[#8ab4f8] transition-colors flex items-center gap-1 text-sm">
+                                            <span>{p.name}</span>
+                                            <ChevronRight className="w-3.5 h-3.5 text-zinc-500 group-hover:translate-x-0.5 transition-transform" />
                                           </p>
-                                        </div>
-                                      ) : (
-                                        <span className="text-xs text-zinc-500 italic block mt-1">
-                                          POC: {p.rawPocText || 'No POC defined'}
-                                        </span>
-                                      )}
-
-                                      {/* Projects embedded list */}
-                                      {allProjects.length > 0 && (
-                                        <div className="mt-3 pt-3 border-t border-[#2e3033]">
-                                          <span className="text-[9px] tracking-normal uppercase font-bold text-[#81c995] block mb-1.5">
-                                            Live Assignments &amp; Initiatives ({allProjects.length})
+                                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase ${
+                                            p.activityLevel === 'High' ? 'bg-red-950/50 text-[#f28b82] border-red-900/30' :
+                                            p.activityLevel === 'Medium' ? 'bg-yellow-950/30 text-[#fdd663] border-yellow-900/30' :
+                                            'bg-zinc-800 text-zinc-400 border-zinc-700'
+                                          }`}>
+                                            {p.activityLevel} Activity
                                           </span>
-                                          <ul className="space-y-1">
-                                            {allProjects.map(proj => (
-                                              <li key={proj.id} className="text-xs text-zinc-300 flex items-center gap-1.5 truncate font-semibold">
-                                                <span className={`w-1.5 h-1.5 rounded-full ${
-                                                  proj.status === 'Completed' ? 'bg-[#81c995]' :
-                                                  proj.status === 'Stalled' ? 'bg-[#f28b82]' :
-                                                  proj.status === 'Planning' ? 'bg-[#fdd663]' :
-                                                  'bg-[#8ab4f8]'
-                                                }`}></span>
-                                                <span className="truncate">{proj.title}</span>
-                                              </li>
-                                            ))}
-                                          </ul>
                                         </div>
-                                      )}
-                                    </div>
+
+                                        {/* Contacts brief list */}
+                                        {p.pocs.length > 0 ? (
+                                          <div className="text-zinc-400 text-xs leading-relaxed mt-1">
+                                            <span className="font-bold text-zinc-500 uppercase text-[9px] tracking-wider block mb-0.5">Point of Contacts</span>
+                                            <p className="truncate text-zinc-300 font-semibold">
+                                              {p.pocs.map(poc => `${poc.name}`).join(', ')}
+                                            </p>
+                                          </div>
+                                        ) : (
+                                          <span className="text-xs text-zinc-500 italic block mt-1">
+                                            POC: {p.rawPocText || 'No POC defined'}
+                                          </span>
+                                        )}
+
+                                        {/* Projects embedded list */}
+                                        {allProjects.length > 0 && (
+                                          <div className="mt-3 pt-3 border-t border-[#2e3033]">
+                                            <span className="text-[9px] tracking-normal uppercase font-bold text-[#81c995] block mb-1.5">
+                                              Live Assignments &amp; Initiatives ({allProjects.length})
+                                            </span>
+                                            <ul className="space-y-1">
+                                              {allProjects.map(proj => (
+                                                <li key={proj.id} className="text-xs text-zinc-300 flex items-center gap-1.5 truncate font-semibold">
+                                                  <span className={`w-1.5 h-1.5 rounded-full ${
+                                                    proj.status === 'Completed' ? 'bg-[#81c995]' :
+                                                    proj.status === 'Stalled' ? 'bg-[#f28b82]' :
+                                                    proj.status === 'Planning' ? 'bg-[#fdd663]' :
+                                                    'bg-[#8ab4f8]'
+                                                  }`}></span>
+                                                  <span className="truncate">{proj.title}</span>
+                                                </li>
+                                              ))}
+                                            </ul>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </FieldTeamTooltip>
                                   );
                                 })}
                               </div>
@@ -451,13 +453,14 @@ export default function App() {
                                 {partners
                                   .filter(p => p.rpmId === rpm.id && p.tier === 'Longtail')
                                   .map(p => (
-                                    <span
-                                      key={p.id}
-                                      onClick={() => setSelectedPartner(p)}
-                                      className="text-xs bg-zinc-800/80 hover:bg-zinc-850 text-zinc-300 font-bold px-3 py-1.5 rounded-full border border-zinc-700/80 hover:border-[#8ab4f8] transition-colors cursor-pointer"
-                                    >
-                                      {p.name}
-                                    </span>
+                                    <FieldTeamTooltip key={p.id} partnerName={p.name}>
+                                      <span
+                                        onClick={() => setSelectedPartner(p)}
+                                        className="inline-block text-xs bg-zinc-800/80 hover:bg-zinc-850 text-zinc-300 font-bold px-3 py-1.5 rounded-full border border-zinc-700/80 hover:border-[#8ab4f8] transition-colors cursor-pointer"
+                                      >
+                                        {p.name}
+                                      </span>
+                                    </FieldTeamTooltip>
                                   ))}
                               </div>
                             ) : (

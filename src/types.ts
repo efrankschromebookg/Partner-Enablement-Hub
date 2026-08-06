@@ -1,3 +1,12 @@
+export interface FieldTeamData {
+  hasFieldTeam: boolean;
+  agency?: string;
+  size?: string;
+  laborType?: string;
+  doorCoverage?: string;
+  lms?: string;
+}
+
 export interface PartnerProject {
   id: string;
   title: string;

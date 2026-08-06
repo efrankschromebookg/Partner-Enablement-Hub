@@ -1,4 +1,4 @@
-import { RPM, Partner, TrainingResource } from './types';
+import { RPM, Partner, TrainingResource, FieldTeamData } from './types';
 
 export const INITIAL_RPMS: RPM[] = [
   {
@@ -707,3 +707,68 @@ export const INITIAL_RESOURCES: TrainingResource[] = [
     "description": "Core strategy deck outlining Q2-Q3 partner training models, execution parameters, and metrics."
   }
 ];
+
+export const FIELD_TEAM_DATA: Record<string, FieldTeamData> = {
+  acer: {
+    hasFieldTeam: false,
+  },
+  asus: {
+    hasFieldTeam: false,
+  },
+  dell: {
+    hasFieldTeam: true,
+    agency: "2020 Companies",
+    size: "110",
+    laborType: "Brand Advocacy & Assisted Sales",
+    doorCoverage: "480 BBY total doors",
+    lms: "Unknown",
+  },
+  hp: {
+    hasFieldTeam: true,
+    agency: "2020 Companies",
+    size: "590",
+    laborType: "Brand Advocacy & Assisted Sales",
+    doorCoverage: "700 BBY total doors | +2k total doors (BBY, Costco, Staples, MC)",
+    lms: "SellPro",
+  },
+  lenovo: {
+    hasFieldTeam: true,
+    agency: "PRS",
+    size: "60",
+    laborType: "Brand Advocacy & Assisted Sales",
+    doorCoverage: "560 BBY total doors",
+    lms: "Lenovo Training Portal",
+  },
+  intel: {
+    hasFieldTeam: true,
+    agency: "2020 Companies",
+    size: "68",
+    laborType: "Brand Advocacy & Assisted Sales",
+    doorCoverage: "784 total doors (513 Best Buy, 1 B&H Photo, 250 Costco, 20 MC)",
+    lms: "iREP",
+  },
+  qualcomm: {
+    hasFieldTeam: true,
+    agency: "BDS",
+    size: "640 (US+CA)",
+    laborType: "Brand Advocacy & Assisted Sales",
+    doorCoverage: "640 BBY & Costco total doors (US+CA)",
+    lms: "Snapdragon Experts",
+  },
+};
+
+export function getFieldTeamInfo(partnerName: string): FieldTeamData | null {
+  if (!partnerName) return null;
+  const key = partnerName.toLowerCase().trim();
+  if (FIELD_TEAM_DATA[key]) {
+    return FIELD_TEAM_DATA[key];
+  }
+  // Try partial match
+  for (const [k, v] of Object.entries(FIELD_TEAM_DATA)) {
+    if (key.includes(k) || k.includes(key)) {
+      return v;
+    }
+  }
+  return null;
+}
+

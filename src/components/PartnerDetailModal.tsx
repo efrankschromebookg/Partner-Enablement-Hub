@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, Plus, Trash2, Mail, ExternalLink, Calendar, Briefcase, GraduationCap, Check, HelpCircle, Pencil } from 'lucide-react';
+import { X, Plus, Trash2, Mail, ExternalLink, Calendar, Briefcase, GraduationCap, Check, HelpCircle, Pencil, Building2, Users, MapPin, ShieldCheck, ShieldAlert } from 'lucide-react';
 import { Partner, POC, PartnerProject, RPM } from '../types';
+import { getFieldTeamInfo } from '../data';
 
 interface PartnerDetailModalProps {
   partner: Partner;
@@ -230,6 +231,8 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
     }
   };
 
+  const fieldTeam = getFieldTeamInfo(partner.name);
+
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
       <div 
@@ -337,6 +340,88 @@ export default function PartnerDetailModal({ partner, rpms, onClose, onUpdatePar
               </div>
               <p className="text-[10px] text-zinc-500 mt-3 font-mono">Updates automatically tracking active sync meetings.</p>
             </div>
+          </div>
+
+          {/* US Field Team Coverage Section */}
+          <div className="bg-[#1e1f20] border border-[#3c4043] rounded-2xl p-6 shadow-lg space-y-4">
+            <div className="flex items-center justify-between border-b border-[#2d2f31] pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-[#8ab4f8]/10 text-[#8ab4f8] border border-[#8ab4f8]/20">
+                  <Users className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-white">US Partner Field Team Coverage</h3>
+                  <p className="text-xs text-[#9aa0a6] mt-0.5">3PL field team parameters, labor structure, door reach, and RSA learning platforms.</p>
+                </div>
+              </div>
+
+              {fieldTeam?.hasFieldTeam ? (
+                <span className="inline-flex items-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-950/80 text-[#81c995] border border-emerald-800/50">
+                  <ShieldCheck className="w-4 h-4" />
+                  Active Field Team
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700">
+                  <ShieldAlert className="w-4 h-4 text-amber-400" />
+                  No Field Team (No FT)
+                </span>
+              )}
+            </div>
+
+            {fieldTeam ? (
+              fieldTeam.hasFieldTeam ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+                  <div className="bg-[#202124] p-3.5 rounded-xl border border-zinc-800 space-y-1">
+                    <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                      <Building2 className="w-3.5 h-3.5 text-[#8ab4f8]" />
+                      3PL Agency
+                    </span>
+                    <p className="text-sm font-extrabold text-white">{fieldTeam.agency}</p>
+                  </div>
+
+                  <div className="bg-[#202124] p-3.5 rounded-xl border border-zinc-800 space-y-1">
+                    <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                      <Users className="w-3.5 h-3.5 text-[#fdd663]" />
+                      Field Team Size
+                    </span>
+                    <p className="text-sm font-extrabold text-white">{fieldTeam.size} Reps</p>
+                  </div>
+
+                  <div className="bg-[#202124] p-3.5 rounded-xl border border-zinc-800 space-y-1">
+                    <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                      <Briefcase className="w-3.5 h-3.5 text-[#f28b82]" />
+                      Labor Type
+                    </span>
+                    <p className="text-xs font-bold text-zinc-200">{fieldTeam.laborType}</p>
+                  </div>
+
+                  <div className="bg-[#202124] p-3.5 rounded-xl border border-zinc-800 space-y-1">
+                    <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                      <GraduationCap className="w-3.5 h-3.5 text-[#c58af9]" />
+                      LMS (for RSAs)
+                    </span>
+                    <p className="text-xs font-bold text-zinc-200">{fieldTeam.lms}</p>
+                  </div>
+
+                  <div className="sm:col-span-2 lg:col-span-4 bg-[#202124] p-3.5 rounded-xl border border-zinc-800 space-y-1">
+                    <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#81c995]" />
+                      Retailer Reach &amp; Door Coverage
+                    </span>
+                    <p className="text-xs font-bold text-zinc-200">{fieldTeam.doorCoverage}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4 bg-[#202124] rounded-xl border border-zinc-800 text-center space-y-1">
+                  <p className="text-sm font-bold text-white">No FT (No Dedicated Field Team)</p>
+                  <p className="text-xs text-zinc-400">This partner does not utilize an active 3PL field sales agency in retail doors.</p>
+                </div>
+              )
+            ) : (
+              <div className="p-4 bg-[#202124] rounded-xl border border-zinc-800 text-center">
+                <p className="text-xs font-medium text-zinc-400 italic">No field team parameters currently mapped for this channel partner.</p>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
