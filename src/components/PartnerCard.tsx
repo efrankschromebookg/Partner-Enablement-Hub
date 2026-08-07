@@ -151,7 +151,7 @@ export default function PartnerCard({ partner, rpm, onSelect }: PartnerCardProps
         </div>
 
         <span className="text-[11px] font-bold text-[#8ab4f8] inline-flex items-center gap-0.5 group-hover:translate-x-1 transition-all">
-          Manage &rarr;
+          View Profile &rarr;
         </span>
       </div>
     </div>

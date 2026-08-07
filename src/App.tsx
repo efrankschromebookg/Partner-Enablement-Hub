@@ -1,155 +1,103 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Users, 
-  Briefcase, 
-  GraduationCap, 
   Search, 
-  Filter, 
-  Plus, 
-  Check, 
-  X, 
   BookOpen, 
   Grid, 
   TableProperties, 
-  TrendingUp, 
   Mail, 
   ExternalLink, 
   FileSpreadsheet, 
-  RefreshCw,
-  Clock,
   ChevronRight,
-  AlertCircle,
-  Copy,
-  Download
+  Sparkles
 } from 'lucide-react';
 
-import { Partner, RPM, TrainingResource, PartnerProject } from './types';
+import { Partner, RPM, TrainingResource } from './types';
 import { INITIAL_RPMS, INITIAL_PARTNERS, INITIAL_RESOURCES } from './data';
 import Header from './components/Header.tsx';
 import PartnerCard from './components/PartnerCard.tsx';
 import PartnerDetailModal from './components/PartnerDetailModal.tsx';
 import FieldTeamTooltip from './components/FieldTeamTooltip.tsx';
-import AddPartnerModal from './components/AddPartnerModal.tsx';
 import EnablementHub from './components/EnablementHub.tsx';
+import GooglebookTrainingExecution from './components/GooglebookTrainingExecution.tsx';
 
 export default function App() {
   // --- Master State Loads ---
   const [partners, setPartners] = useState<Partner[]>(() => {
-    const saved = localStorage.getItem('rpm_partners_v14');
+    const saved = localStorage.getItem('rpm_partners_v19');
     return saved ? JSON.parse(saved) : INITIAL_PARTNERS;
   });
 
-  const [rpms, setRpms] = useState<RPM[]>(() => {
-    const saved = localStorage.getItem('rpm_rpms_v14');
+  const [rpms] = useState<RPM[]>(() => {
+    const saved = localStorage.getItem('rpm_rpms_v19');
     return saved ? JSON.parse(saved) : INITIAL_RPMS;
   });
 
-  const [resources, setResources] = useState<TrainingResource[]>(() => {
-    const saved = localStorage.getItem('rpm_resources_v14');
+  const [resources] = useState<TrainingResource[]>(() => {
+    const saved = localStorage.getItem('rpm_resources_v19');
     return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
   });
 
   // --- UI Layout / Navigation State ---
-  const [activeTab, setActiveTab] = useState<'directory' | 'alignment' | 'enablement'>('directory');
+  const [activeTab, setActiveTab] = useState<'directory' | 'alignment' | 'enablement' | 'training-execution'>('directory');
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
-  const [showAddPartner, setShowAddPartner] = useState(false);
-  const [showExportModal, setShowExportModal] = useState(false);
-  const [exportCopied, setExportCopied] = useState(false);
 
   // --- Filtering State ---
   const [searchQuery, setSearchQuery] = useState('');
   const [filterRpm, setFilterRpm] = useState<string>('all');
-  const [filterTier, setFilterTier] = useState<string>('all');
+  const [filterTier] = useState<string>('all');
   const [filterActivity, setFilterActivity] = useState<string>('all');
   const [filterSector, setFilterSector] = useState<string>('all');
 
   // --- Save Persistence effects ---
   useEffect(() => {
-    localStorage.setItem('rpm_partners_v14', JSON.stringify(partners));
+    localStorage.setItem('rpm_partners_v19', JSON.stringify(partners));
   }, [partners]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_rpms_v14', JSON.stringify(rpms));
+    localStorage.setItem('rpm_rpms_v19', JSON.stringify(rpms));
   }, [rpms]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_resources_v14', JSON.stringify(resources));
+    localStorage.setItem('rpm_resources_v19', JSON.stringify(resources));
   }, [resources]);
 
-  // --- State Reset Utility ---
-  const handleResetToSeedData = () => {
-    if (window.confirm('Are you sure you want to restore the platform to the baseline 2026 spreadsheet data? This overrides any custom modifications.')) {
-      setPartners(INITIAL_PARTNERS);
-      setRpms(INITIAL_RPMS);
-      setResources(INITIAL_RESOURCES);
-      localStorage.clear();
-      alert('Baseline loaded successfully!');
-    }
-  };
-
-  // --- Partner Mutation actions ---
-  const handleAddPartner = (newPartner: Partner) => {
-    setPartners(prev => [newPartner, ...prev]);
-    // update RPM prioritizers just in case
-    const updatedRpms = rpms.map(r => {
-      if (r.id === newPartner.rpmId) {
-        return {
-          ...r,
-          priorityPartners: newPartner.tier === 'Priority' 
-            ? [...r.priorityPartners, newPartner.name]
-            : r.priorityPartners,
-          longtailPartners: newPartner.tier === 'Longtail'
-            ? [...r.longtailPartners, newPartner.name]
-            : r.longtailPartners
-        };
-      }
-      return r;
-    });
-    setRpms(updatedRpms);
-  };
-
-  const handleUpdatePartner = (updatedPartner: Partner) => {
-    setPartners(prev => prev.map(p => p.id === updatedPartner.id ? updatedPartner : p));
-    
-    // Also update active selection so modal renders with refreshed state
-    if (selectedPartner && selectedPartner.id === updatedPartner.id) {
-      setSelectedPartner(updatedPartner);
-    }
-  };
-
-  const handleAddResource = (newRes: TrainingResource) => {
-    setResources(prev => [newRes, ...prev]);
-  };
-
-  const handleDeleteResource = (id: string) => {
-    setResources(prev => prev.filter(r => r.id !== id));
-  };
-
   // --- Search & Filtering Calculation Logic ---
-  const filteredPartners = partners.filter(p => {
-    // Search query matching (matches partner name, sector, POC names or emails, projects)
-    const matchesSearch = 
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (p.sector && p.sector.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      p.pocs.some(poc => 
-        poc.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        poc.email.toLowerCase().includes(searchQuery.toLowerCase())
-      ) ||
-      p.projects.some(proj => proj.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  const activityOrder: Record<string, number> = {
+    'High': 1,
+    'Medium': 2,
+    'Low': 3,
+    'Planned': 4,
+  };
 
-    const matchesRpm = filterRpm === 'all' || p.rpmId === filterRpm;
-    // CRITICAL: Force Priority only for the home directory layout as requested
-    const matchesTier = p.tier === 'Priority';
-    const matchesActivity = filterActivity === 'all' || p.activityLevel === filterActivity;
-    const matchesSector = filterSector === 'all' || p.sector === filterSector;
+  const filteredPartners = partners
+    .filter(p => {
+      // Search query matching (matches partner name, sector, POC names or emails, projects)
+      const matchesSearch = 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.sector && p.sector.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        p.pocs.some(poc => 
+          poc.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          poc.email.toLowerCase().includes(searchQuery.toLowerCase())
+        ) ||
+        p.projects.some(proj => proj.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    return matchesSearch && matchesRpm && matchesTier && matchesActivity && matchesSector;
-  });
+      const matchesRpm = filterRpm === 'all' || p.rpmId === filterRpm;
+      // CRITICAL: Force Priority only for the home directory layout as requested
+      const matchesTier = p.tier === 'Priority';
+      const matchesActivity = filterActivity === 'all' || p.activityLevel === filterActivity;
+      const matchesSector = filterSector === 'all' || p.sector === filterSector;
+
+      return matchesSearch && matchesRpm && matchesTier && matchesActivity && matchesSector;
+    })
+    .sort((a, b) => {
+      const orderA = activityOrder[a.activityLevel] ?? 99;
+      const orderB = activityOrder[b.activityLevel] ?? 99;
+      return orderA - orderB;
+    });
 
   const handleClearFilters = () => {
     setSearchQuery('');
     setFilterRpm('all');
-    setFilterTier('all');
     setFilterActivity('all');
     setFilterSector('all');
   };
@@ -164,7 +112,6 @@ export default function App() {
       <Header 
         partners={partners} 
         rpms={rpms} 
-        onAddPartner={() => setShowAddPartner(true)} 
       />
 
       {/* Primary Tab Switcher Row */}
@@ -215,20 +162,20 @@ export default function App() {
               <span>Enablement Assets Hub</span>
               {activeTab === 'enablement' && <span className="w-1.5 h-1.5 rounded-full bg-[#34A853]"></span>}
             </button>
-          </div>
 
-          {/* Export Live Updates button */}
-          <button
-            onClick={() => {
-              setExportCopied(false);
-              setShowExportModal(true);
-            }}
-            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#81c995] hover:text-white bg-[#202124] hover:bg-zinc-800 px-4 py-2.5 rounded-full border border-[#314a38] transition-all cursor-pointer"
-            title="Export your current edits to hardcode them forever"
-          >
-            <Download className="w-3.5 h-3.5 text-[#81c995]" />
-            <span>Export Live Updates</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('training-execution')}
+              className={`inline-flex items-center gap-2 text-xs md:text-sm font-bold px-4 py-2.5 rounded-full transition-all border ${
+                activeTab === 'training-execution'
+                  ? 'bg-zinc-850 text-white border-[#c58af9]/50 shadow-md shadow-[#c58af9]/5'
+                  : 'bg-transparent text-[#9aa0a6] border-transparent hover:bg-zinc-800/40 hover:text-white'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-[#c58af9]" />
+              <span>Googlebook Training Execution</span>
+              {activeTab === 'training-execution' && <span className="w-1.5 h-1.5 rounded-full bg-[#c58af9]"></span>}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -481,9 +428,12 @@ export default function App() {
           {activeTab === 'enablement' && (
             <EnablementHub
               resources={resources}
-              onAddResource={handleAddResource}
-              onDeleteResource={handleDeleteResource}
             />
+          )}
+
+          {/* TAB 4: GOOGLEBOOK TRAINING EXECUTION */}
+          {activeTab === 'training-execution' && (
+            <GooglebookTrainingExecution />
           )}
 
         </div>
@@ -495,90 +445,7 @@ export default function App() {
           partner={selectedPartner}
           rpms={rpms}
           onClose={() => setSelectedPartner(null)}
-          onUpdatePartner={handleUpdatePartner}
         />
-      )}
-
-      {/* --- Add New Partner form Overlay --- */}
-      {showAddPartner && (
-        <AddPartnerModal
-          rpms={rpms}
-          onClose={() => setShowAddPartner(false)}
-          onAddPartner={handleAddPartner}
-        />
-      )}
-
-      {/* --- Export Live Updates Overlay Modal --- */}
-      {showExportModal && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-[#1e1f20] border border-[#3c4043] rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative flex flex-col max-h-[85vh]">
-            <button
-              onClick={() => setShowExportModal(false)}
-              className="absolute top-4 right-4 text-zinc-500 hover:text-white p-1 hover:bg-zinc-800 rounded-full transition-colors cursor-pointer"
-              title="Close modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-2 text-[#81c995]">
-                <FileSpreadsheet className="w-5 h-5" />
-                <h3 className="text-base font-black text-white">Export Live browser Content</h3>
-              </div>
-              <p className="text-xs text-zinc-400 font-medium leading-relaxed">
-                Because your browser saves updates locally, coworkers or live servers (like GitHub/Vercel) cannot see your current edits yet. 
-                <strong className="text-white block mt-1.5">How to publish these live:</strong>
-                1. Click <span className="text-[#8ab4f8] font-bold">"Copy Snapshot JSON"</span> below.<br />
-                2. Paste this text directly into our chat here.<br />
-                3. I will read your exact modifications and permanently hardcode them into the system code so they are live on Vercel and GitHub forever!
-              </p>
-            </div>
-
-            <div className="flex-grow flex flex-col min-h-[180px] bg-[#202124] border border-[#3c4043] rounded-xl p-3 relative overflow-hidden">
-              <textarea
-                readOnly
-                value={JSON.stringify({ rpms, partners, resources }, null, 2)}
-                className="w-full flex-grow text-[10px] font-mono text-zinc-300 bg-transparent resize-none focus:outline-none overflow-y-auto"
-                onClick={(e) => (e.target as HTMLTextAreaElement).select()}
-              />
-            </div>
-
-            <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-zinc-800/80">
-              <button
-                onClick={() => setShowExportModal(false)}
-                className="text-xs uppercase font-extrabold text-[#e3e3e3] hover:text-white px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700/80 rounded-full cursor-pointer transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  const dataToCopy = JSON.stringify({ rpms, partners, resources }, null, 2);
-                  navigator.clipboard.writeText(dataToCopy).then(() => {
-                    setExportCopied(true);
-                    setTimeout(() => setExportCopied(false), 3000);
-                  });
-                }}
-                className={`text-xs uppercase font-black px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer transition-all ${
-                  exportCopied 
-                    ? 'bg-[#34a853] text-[#131314]' 
-                    : 'bg-[#8ab4f8] text-[#131314] hover:bg-[#a8c7fa]'
-                }`}
-              >
-                {exportCopied ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    <span>Snapshot Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    <span>Copy Snapshot JSON</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
       )}
 
       {/* Corporate platform footer */}

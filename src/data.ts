@@ -29,17 +29,17 @@ export const INITIAL_RPMS: RPM[] = [
     "email": "sshah@google.com",
     "priorityPartners": [
       "HP",
-      "Lenovo"
+      "Lenovo",
+      "Dell",
+      "Qualcomm"
     ],
     "longtailPartners": [
-      "Dell",
       "Staples",
       "Office Depot",
       "NEX",
       "GCX",
       "MCX",
-      "B&H",
-      "Qualcomm"
+      "B&H"
     ],
     "avatarColor": "emerald"
   },
@@ -99,6 +99,13 @@ export const INITIAL_PARTNERS: Partner[] = [
       "ASUS Training Alignment Sync 06.12.26"
     ],
     "projects": [
+      {
+        "id": "proj-gb-launch-asus",
+        "title": "Googlebook Launch",
+        "status": "In Progress",
+        "description": "Cross-functional enablement and Q4 retail readiness for Googlebook rollout.",
+        "lastUpdated": "2026-08-06"
+      },
       {
         "id": "proj-1780503165052",
         "title": "OEM Webinar",
@@ -185,6 +192,13 @@ export const INITIAL_PARTNERS: Partner[] = [
     ],
     "projects": [
       {
+        "id": "proj-gb-launch-hp",
+        "title": "Googlebook Launch",
+        "status": "In Progress",
+        "description": "Cross-functional enablement and Q4 retail readiness for Googlebook rollout.",
+        "lastUpdated": "2026-08-06"
+      },
+      {
         "id": "proj-hp-1",
         "title": "Monthly HP Syncs",
         "status": "In Progress",
@@ -232,9 +246,17 @@ export const INITIAL_PARTNERS: Partner[] = [
     ],
     "trainingEngagements": [
       "Met Ari 5/8, shared basics & Neo platform overview",
-      "Provided B2S FT Training 05.21.26"
+      "Provided B2S FT Training 05.21.26",
+      "OEM Webinar to NA Lenovo team on 08.06.26"
     ],
     "projects": [
+      {
+        "id": "proj-gb-launch-lenovo",
+        "title": "Googlebook Launch",
+        "status": "In Progress",
+        "description": "Cross-functional enablement and Q4 retail readiness for Googlebook rollout.",
+        "lastUpdated": "2026-08-06"
+      },
       {
         "id": "proj-lenovo-1",
         "title": "Lenovo Meeting Minutes",
@@ -245,11 +267,11 @@ export const INITIAL_PARTNERS: Partner[] = [
       },
       {
         "id": "proj-1780503269526",
-        "title": "OEM Webinar",
-        "description": "TBD",
-        "status": "Planning",
-        "url": "https://docs.google.com/presentation/d/1aDLpxeirYIgWsjUokEvZS1dey5ebEI2r49Gv01hOEpM/edit?usp=sharing&resourcekey=0-SO5j7uuocFtRuy7VIEjuog",
-        "lastUpdated": "2026-06-03"
+        "title": "Lenovo OEM Webinar",
+        "description": "08.06.26 with NA teams, attended by 10 Lenovo corporate team members.",
+        "status": "Completed",
+        "url": "https://docs.google.com/presentation/d/18b3A9ozhGd0fmSNOUQDpyaqdPl6rlD5zc8MFgzXwgGU/edit?usp=sharing&resourcekey=0-qNAjFUptGaFwMXv6-wQjJQ",
+        "lastUpdated": "2026-08-06"
       },
       {
         "id": "proj-lenovo-2",
@@ -268,12 +290,31 @@ export const INITIAL_PARTNERS: Partner[] = [
     "id": "qualcomm",
     "name": "Qualcomm",
     "rpmId": "sagar-shah",
-    "tier": "Longtail",
-    "pocs": [],
-    "rawPocText": "Awaiting Sagar updates",
+    "tier": "Priority",
+    "pocs": [
+      {
+        "name": "Megan Delgado",
+        "email": "megans@qti.qualcomm.com",
+        "role": "Global Director of In Store Sales POC"
+      },
+      {
+        "name": "Miguel Villamil",
+        "email": "mvillami@qti.qualcomm.com",
+        "role": "Sales Enablement & Training POC"
+      }
+    ],
+    "rawPocText": "",
     "trainingEngagements": [],
-    "projects": [],
-    "activityLevel": "Low",
+    "projects": [
+      {
+        "id": "proj-qualcomm-nxt",
+        "title": "Qualcomm NXT Event",
+        "status": "In Progress",
+        "description": "In-person Q4 national sales kickoff with Googlebook training presence",
+        "lastUpdated": "2026-08-06"
+      }
+    ],
+    "activityLevel": "Medium",
     "sector": "SoC"
   },
   {
@@ -287,6 +328,13 @@ export const INITIAL_PARTNERS: Partner[] = [
       "OEM Webinar to Acer team on 05.14.26"
     ],
     "projects": [
+      {
+        "id": "proj-gb-launch-acer",
+        "title": "Googlebook Launch",
+        "status": "In Progress",
+        "description": "Cross-functional enablement and Q4 retail readiness for Googlebook rollout.",
+        "lastUpdated": "2026-08-06"
+      },
       {
         "id": "proj-1780502840877",
         "title": "Acer OEM Webinar",
@@ -328,6 +376,13 @@ export const INITIAL_PARTNERS: Partner[] = [
       "Googlebook & iRep Planning 06.17.26 - https://docs.google.com/document/d/17fyW8LQ-RNH0pznLvrwBGu_gnUGXJ2nmS0-06QogeTo/edit?usp=sharing&resourcekey=0-bL-DLsQRUrpqwmbjl5kLcQ"
     ],
     "projects": [
+      {
+        "id": "proj-gb-launch-intel",
+        "title": "Googlebook Launch",
+        "status": "In Progress",
+        "description": "Intel HQ & Field Team alignment for Googlebook messaging and retail execution.",
+        "lastUpdated": "2026-08-06"
+      },
       {
         "id": "proj-intel-2",
         "title": "Intel Field Team MMs",
@@ -468,11 +523,40 @@ export const INITIAL_PARTNERS: Partner[] = [
     "id": "dell",
     "name": "Dell",
     "rpmId": "sagar-shah",
-    "tier": "Longtail",
-    "pocs": [],
-    "trainingEngagements": [],
-    "projects": [],
-    "activityLevel": "Low",
+    "tier": "Priority",
+    "pocs": [
+      {
+        "name": "Vanessa Guillemette",
+        "email": "Vanessa.Guillemette@dell.com",
+        "role": "Global Ops & Training POC"
+      },
+      {
+        "name": "Josh Wade",
+        "email": "jwade@2020companies.com",
+        "role": "Training POC (2020)"
+      }
+    ],
+    "rawPocText": "",
+    "trainingEngagements": [
+      "Googlebook launch partner call 08.05.26"
+    ],
+    "projects": [
+      {
+        "id": "proj-gb-launch-dell",
+        "title": "Googlebook Launch",
+        "status": "In Progress",
+        "description": "Dell Q4 retail readiness and field sales enablement for Googlebook launch.",
+        "lastUpdated": "2026-08-06"
+      },
+      {
+        "id": "proj-dell-ntm",
+        "title": "Dell NTM Event",
+        "status": "In Progress",
+        "description": "In-person Q4 national sales kickoff in New Orleans",
+        "lastUpdated": "2026-08-06"
+      }
+    ],
+    "activityLevel": "Medium",
     "sector": "OEM"
   },
   {

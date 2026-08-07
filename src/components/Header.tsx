@@ -5,10 +5,9 @@ import { Partner, RPM } from '../types';
 interface HeaderProps {
   partners: Partner[];
   rpms: RPM[];
-  onAddPartner: () => void;
 }
 
-export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
+export default function Header({ partners, rpms }: HeaderProps) {
   const totalPartners = partners.length;
   const priorityPartnersCount = partners.filter(p => p.tier === 'Priority').length;
   const longtailPartnersCount = partners.filter(p => p.tier === 'Longtail').length;
@@ -28,18 +27,16 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
       {/* Top Brand Navigation Bar */}
       <div className="bg-[#131314] px-6 py-3 border-b border-[#2d2f31] flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          {/* Authentic Google Wordmark Branding */}
-          <div className="flex items-center">
-            <span className="text-xl font-extrabold tracking-tight select-none">
-              <span className="text-[#4285F4]">G</span>
-              <span className="text-[#EA4335]">o</span>
-              <span className="text-[#FBBC05]">o</span>
-              <span className="text-[#4285F4]">g</span>
-              <span className="text-[#34A853]">l</span>
-              <span className="text-[#EA4335]">e</span>
-            </span>
-            <span className="text-[11px] font-bold text-zinc-400 tracking-wider uppercase bg-zinc-800/45 border border-zinc-700/60 px-2 py-0.5 rounded ml-2.5">
-              Chromebook Partner Portfolio
+          {/* Official Chromebook Branding Logo - Transparent vector background */}
+          <div className="flex items-center gap-3 select-none">
+            <img 
+              src="/chromebook-logo-white.svg" 
+              alt="Chromebook Logo" 
+              className="h-7 md:h-8 w-auto object-contain"
+            />
+
+            <span className="text-[11px] font-bold text-zinc-400 tracking-wider uppercase bg-zinc-800/60 border border-zinc-700/60 px-2.5 py-1 rounded-md ml-1 self-center">
+              Partner Portfolio
             </span>
           </div>
         </div>
@@ -47,12 +44,12 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
         {/* Personalized Session Indicator matching marketing page utility look */}
         <div className="flex items-center gap-3.5">
           <div className="hidden sm:flex flex-col text-right">
-            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">RPM Active Operator</span>
-            <span className="text-xs text-zinc-300 font-bold">efranks@cb-retail.com</span>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">T&E Portfolio Owner</span>
+            <span className="text-xs text-zinc-300 font-bold">frankse@google.com</span>
           </div>
           <div className="flex items-center gap-2 bg-[#1e1f20] border border-[#2d2f31] px-3 py-1.5 rounded-full shadow-inner">
             <span className="w-2 h-2 rounded-full bg-[#34A853] animate-pulse"></span>
-            <span className="text-[10px] font-bold text-[#81c995] uppercase tracking-wider">Authorized</span>
+            <span className="text-[10px] font-bold text-[#81c995] uppercase tracking-wider">Up to date</span>
           </div>
         </div>
       </div>
@@ -159,10 +156,10 @@ export default function Header({ partners, rpms, onAddPartner }: HeaderProps) {
                   <span className="text-lg md:text-xl font-black text-white">100%</span>
                   <div className="flex flex-wrap gap-1">
                     <span className="text-[9px] text-[#fdd663] font-semibold bg-[#FBBC05]/10 border border-[#FBBC05]/30 px-1.5 py-0.5 rounded">
-                      4/4 Teams Active
+                      6/6 Teams Active
                     </span>
                     <span className="text-[9px] text-zinc-400 font-semibold bg-[#131314] border border-zinc-700/50 px-1.5 py-0.5 rounded">
-                      CB, HP, Lenovo, Intel
+                      CB, HP, Lenovo, Intel, Dell, Qualcomm
                     </span>
                   </div>
                 </div>
