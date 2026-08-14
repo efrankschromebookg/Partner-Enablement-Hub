@@ -91,23 +91,44 @@ export default function EnablementHub({ resources }: EnablementHubProps) {
               )}
             </div>
 
-            <div className="border-t border-[#2d2f31] pt-3 mt-4 flex items-center justify-between text-xs text-zinc-500">
-              <span className="text-[10px] font-mono font-bold flex items-center gap-1 text-zinc-400">
-                <Calendar className="w-3.5 h-3.5 text-zinc-500" />
-                <span>Updated: {res.lastUpdated}</span>
-              </span>
+            <div className="border-t border-[#2d2f31] pt-3 mt-4 space-y-2.5">
+              <div className="flex items-center justify-between text-xs text-zinc-500">
+                <span className="text-[10px] font-mono font-bold flex items-center gap-1 text-zinc-400">
+                  <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                  <span>Updated: {res.lastUpdated}</span>
+                </span>
 
-              <div className="flex items-center gap-1">
-                <a
-                  href={res.url}
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  className="font-bold text-[#81c995] hover:text-[#a2e0b5] hover:underline inline-flex items-center gap-0.5 pl-1 transition-colors"
-                >
-                  <span>Link</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                {(!res.links || res.links.length === 0) && (
+                  <a
+                    href={res.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    referrerPolicy="no-referrer"
+                    className="font-bold text-[#81c995] hover:text-[#a2e0b5] hover:underline inline-flex items-center gap-1 pl-1 transition-colors text-xs"
+                  >
+                    <span>Link</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
               </div>
+
+              {res.links && res.links.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  {res.links.map((link, idx) => (
+                    <a
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      referrerPolicy="no-referrer"
+                      className="text-xs font-semibold text-[#81c995] hover:text-[#a2e0b5] bg-[#81c995]/10 hover:bg-[#81c995]/20 border border-[#81c995]/30 px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 transition-all shadow-sm group"
+                    >
+                      <span className="truncate max-w-[200px]">{link.title}</span>
+                      <ExternalLink className="w-3 h-3 text-[#81c995] group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}

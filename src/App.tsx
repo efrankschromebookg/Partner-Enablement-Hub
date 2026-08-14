@@ -33,7 +33,7 @@ export default function App() {
   });
 
   const [resources] = useState<TrainingResource[]>(() => {
-    const saved = localStorage.getItem('rpm_resources_v19');
+    const saved = localStorage.getItem('rpm_resources_v20');
     return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
   });
 
@@ -58,7 +58,7 @@ export default function App() {
   }, [rpms]);
 
   useEffect(() => {
-    localStorage.setItem('rpm_resources_v19', JSON.stringify(resources));
+    localStorage.setItem('rpm_resources_v20', JSON.stringify(resources));
   }, [resources]);
 
   // --- Search & Filtering Calculation Logic ---

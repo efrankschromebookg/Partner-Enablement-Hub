@@ -775,6 +775,16 @@ export const INITIAL_RESOURCES: TrainingResource[] = [
     "name": "OEM/SoC Webinar Deck",
     "type": "Deck",
     "url": "https://docs.google.com/presentation/d/1gvAl5rHBWCJSEQIoOfxRTJTG48vTXftJLMYmEYIamh4/edit?usp=sharing",
+    "links": [
+      {
+        "title": "Webinar Deck",
+        "url": "https://docs.google.com/presentation/d/1gvAl5rHBWCJSEQIoOfxRTJTG48vTXftJLMYmEYIamh4/edit?usp=sharing"
+      },
+      {
+        "title": "Webinar Attendees NAmer",
+        "url": "https://docs.google.com/spreadsheets/d/1hd7FQw79e0tpskNnHW_p2SPfOCFf5co24Rv1Y2Tkrco/edit?usp=sharing&resourcekey=0-Vgg_6gBBPhVHKUch9LVRBQ"
+      }
+    ],
     "lastUpdated": "June 1",
     "status": "FINAL",
     "audience": "External Shared",

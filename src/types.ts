@@ -46,11 +46,17 @@ export interface RPM {
   avatarColor?: string; // TailWind color class
 }
 
+export interface ResourceLink {
+  title: string;
+  url: string;
+}
+
 export interface TrainingResource {
   id: string;
   name: string;
   type: 'Site Link' | 'Deck' | 'Webinar' | 'Library' | 'Other';
   url: string;
+  links?: ResourceLink[];
   lastUpdated?: string;
   status: 'FINAL' | 'WIP' | 'Draft' | 'Updated';
   audience: 'External Shared' | 'Internal Only';
